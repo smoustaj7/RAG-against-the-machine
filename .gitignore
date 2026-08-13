@@ -1,0 +1,71 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter / notebooks
+.ipynb_checkpoints/
+
+# Build / distribution
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+pip-wheel-metadata/
+
+# IDE / editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and temp files
+*.log
+*.tmp
+tmp/
+temp/
+
+# Local environment/config secrets
+.env
+.env.*
+!.env.example
+
+# Model / data artifacts
+*.bin
+*.ckpt
+*.safetensors
+*.pt
+*.pth
+*.onnx
+*.h5
+checkpoints/
+models/
+artifacts/
+
+# Generated docs / caches
+site/
+.cache/
+
+# Local test outputs
+coverage/
+htmlcov/
+
+# Data
+vllm-0.10.1/
