@@ -34,11 +34,12 @@ Design rule behind every phase: **separate chunk storage from index structure, a
 ## Phase 1 — Data Models
 **Satisfies:** VI.4 Data Models
 
-- [ ] `src/models.py`: implement `MinimalSource`, `UnansweredQuestion`, `AnsweredQuestion`, `RagDataset`, `MinimalSearchResults`, `MinimalAnswer`, `StudentSearchResults`, `StudentSearchResultsAndAnswer` exactly as specified
-- [ ] Add your own extra fields/models here if needed later (e.g. `chunk_id` on `MinimalSource` is tempting — **don't** add fields the grader doesn't expect to *required* spots; extend only additively)
-- [ ] Full type hints + docstrings (mypy/flake8 compliance starts here, not later)
+- [x] `src/models.py`: implement `MinimalSource`, `UnansweredQuestion`, `AnsweredQuestion`, `RagDataset`, `MinimalSearchResults`, `MinimalAnswer`, `StudentSearchResults`, `StudentSearchResultsAndAnswer` exactly as specified
+- [x] Add your own extra fields/models here if needed later (e.g. `chunk_id` on `MinimalSource` is tempting — **don't** add fields the grader doesn't expect to *required* spots; extend only additively)
+- [x] Full type hints + docstrings (mypy/flake8 compliance starts here, not later)
 
 **Definition of done:** models import cleanly, `mypy` passes on this file alone.
+
 
 ---
 
