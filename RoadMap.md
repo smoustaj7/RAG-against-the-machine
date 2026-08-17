@@ -7,25 +7,25 @@ Design rule behind every phase: **separate chunk storage from index structure, a
 ## Phase 0 — Environment & Scaffolding
 **Satisfies:** V.1 General Rules, V.2 Makefile, V.4 Additional Requirements, VI.7.1 layout
 
-- [ ] `uv init`, set Python 3.10+ in `pyproject.toml`
-- [ ] Add deps: `pydantic`, `fire`, `tqdm`, `rank_bm25` (or `bm25s`), `numpy`, `scikit-learn`, `transformers`, `torch`, `flake8`, `mypy`, `pytest`
-- [ ] Create folder layout exactly as spec requires:
+- [x] `uv init`, set Python 3.10+ in `pyproject.toml`
+- [x] Add deps: `pydantic`, `fire`, `tqdm`, `rank_bm25` (or `bm25s`), `numpy`, `scikit-learn`, `transformers`, `torch`, `flake8`, `mypy`, `pytest`
+- [x] Create folder layout exactly as spec requires:
   ```
   src/
   data/raw/ data/processed/
   data/datasets/UnansweredQuestions/ data/datasets/AnsweredQuestions/
   data/output/search_results/ data/output/search_results_and_answer/
   ```
-- [ ] `.gitignore`: `__pycache__`, `.mypy_cache`, `data/processed/`, any local vLLM corpus paths if vendored separately, `.env`
-- [ ] **Makefile** with all 5 required targets:
+- [x] `.gitignore`: `__pycache__`, `.mypy_cache`, `data/processed/`, any local vLLM corpus paths if vendored separately, `.env`
+- [x] **Makefile** with all 5 required targets:
   - `install` → `uv sync`
   - `run` → `uv run python -m src`
   - `debug` → `uv run python -m pdb -m src`
   - `clean` → remove `__pycache__`, `.mypy_cache`, caches
   - `lint` → `flake8 .` + the exact mandated `mypy .` flags
   - `lint-strict` (optional) → `flake8 .` + `mypy . --strict`
-- [ ] `README.md` stub with required section headers only (fill in later — Phase 8)
-- [ ] Git repo initialized, first commit is scaffolding only (no vendored corpus, no secrets)
+- [x] `README.md` stub with required section headers only (fill in later — Phase 8)
+- [x] Git repo initialized, first commit is scaffolding only (no vendored corpus, no secrets)
 
 **Definition of done:** `make install`, `make lint`, `make run` all execute without error on an empty CLI.
 
