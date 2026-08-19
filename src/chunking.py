@@ -9,10 +9,8 @@ from typing import List, Union
 from src.chunk_store import Chunk
 
 
-# File extensions to index
 SUPPORTED_EXTENSIONS = {".py", ".md", ".rst", ".txt"}
 
-# Directory names and path components to ignore
 IGNORED_DIRS = {
     ".git",
     ".venv",
@@ -27,7 +25,6 @@ IGNORED_DIRS = {
     ".egg-info",
 }
 
-# Binary / lock file extensions to skip explicitly
 IGNORED_EXTENSIONS = {
     ".lock",
     ".pyc",
@@ -61,15 +58,12 @@ def should_index_file(file_path: Union[str, Path]) -> bool:
     """Determine whether a file should be indexed."""
     path = Path(file_path)
 
-    # Skip files with ignored extensions
     if path.suffix.lower() in IGNORED_EXTENSIONS:
         return False
 
-    # Skip files not matching supported extensions
     if path.suffix.lower() not in SUPPORTED_EXTENSIONS:
         return False
 
-    # Check path parts for hidden files or ignored directories
     for part in path.parts:
         if part.startswith(".") and part not in {".", ".."}:
             return False
@@ -119,7 +113,6 @@ class TextChunker:
         n = len(content)
         start = 0
 
-        # Adjust overlap if max_chunk_size is small
         actual_overlap = min(overlap_size, max_chunk_size // 4)
 
         separators = ["\n\n", "\n", ". ", " ", ""]
@@ -128,7 +121,6 @@ class TextChunker:
             end = min(start + max_chunk_size, n)
 
             if end < n:
-                # Find best separator to break at
                 cut_found = False
                 for sep in separators:
                     if sep == "":
@@ -142,7 +134,6 @@ class TextChunker:
                 if not cut_found:
                     end = min(start + max_chunk_size, n)
 
-            # Ensure progress
             if end <= start:
                 end = min(start + max_chunk_size, n)
 
@@ -160,7 +151,6 @@ class TextChunker:
                 )
             )
 
-            # Calculate next start point
             if end >= n:
                 break
             next_start = end - actual_overlap if actual_overlap > 0 else end
