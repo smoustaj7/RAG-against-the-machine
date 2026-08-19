@@ -46,14 +46,14 @@ Design rule behind every phase: **separate chunk storage from index structure, a
 ## Phase 2 — Chunk Registry & Chunking Strategies
 **Satisfies:** VI.1 Indexing (chunking requirement), sets up Bonus 1/2/3
 
-- [ ] `src/chunk_store.py`: define internal `Chunk` dataclass/pydantic model: `chunk_id, file_path, first_character_index, last_character_index, text, file_hash`
+- [x] `src/chunk_store.py`: define internal `Chunk` dataclass/pydantic model: `chunk_id, file_path, first_character_index, last_character_index, text, file_hash`
   - `file_hash` (sha256 of file contents) is unused right now but **must** be captured here — this is the one field that makes Bonus 3 (incremental indexing) free later instead of a refactor
-- [ ] `src/chunking.py`:
-  - [ ] `PythonChunker` — use `ast` to chunk on function/class boundaries where possible, fall back to size-based splitting for code that doesn't parse cleanly; hard cap at `--max_chunk_size`
-  - [ ] `MarkdownChunker` — chunk on headers/sections, fall back to size-based splitting; hard cap at `--max_chunk_size`
-  - [ ] Both must **never** exceed `max_chunk_size` (moulinette hard-rejects overlength sources)
-  - [ ] Decide + document file selection rule (which extensions/dirs to skip — tests, `.git`, binaries, etc.)
-- [ ] Unit tests (pytest, not graded but catches boundary bugs early): chunk boundaries don't overlap incorrectly, no chunk exceeds max size, char indices are correct offsets into the *original* file
+- [x] `src/chunking.py`:
+  - [x] `PythonChunker` — use `ast` to chunk on function/class boundaries where possible, fall back to size-based splitting for code that doesn't parse cleanly; hard cap at `--max_chunk_size`
+  - [x] `MarkdownChunker` — chunk on headers/sections, fall back to size-based splitting; hard cap at `--max_chunk_size`
+  - [x] Both must **never** exceed `max_chunk_size` (moulinette hard-rejects overlength sources)
+  - [x] Decide + document file selection rule (which extensions/dirs to skip — tests, `.git`, binaries, etc.)
+- [x] Unit tests (pytest, not graded but catches boundary bugs early): chunk boundaries don't overlap incorrectly, no chunk exceeds max size, char indices are correct offsets into the *original* file
 
 **Definition of done:** running chunkers on a handful of sample files produces valid, correctly-indexed `Chunk` objects with no size violations.
 
