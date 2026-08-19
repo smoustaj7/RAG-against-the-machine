@@ -196,7 +196,6 @@ class PythonChunker:
         try:
             tree = ast.parse(content)
         except SyntaxError:
-            # Syntax error fallback to TextChunker
             return TextChunker.chunk(
                 file_path=file_path,
                 content=content,
@@ -216,7 +215,6 @@ class PythonChunker:
             end = line_starts[end_lineno - 1] + end_col_offset
             return start, end
 
-        # Gather top-level boundary ranges
         boundaries: List[tuple[int, int]] = []
         for body_item in tree.body:
             if hasattr(body_item, "lineno") and hasattr(
@@ -234,7 +232,6 @@ class PythonChunker:
                 max_chunk_size=max_chunk_size,
             )
 
-        # Build contiguous intervals covering the whole file
         intervals: List[tuple[int, int]] = []
         curr = 0
         for s, e in boundaries:
@@ -245,7 +242,6 @@ class PythonChunker:
         if curr < len(content):
             intervals.append((curr, len(content)))
 
-        # Merge adjacent intervals up to max_chunk_size
         chunks: List[Chunk] = []
         group_start: int = -1
         group_end: int = -1
@@ -254,7 +250,6 @@ class PythonChunker:
             if s == e:
                 continue
 
-            # If single interval > max_chunk_size, flush group & split interval
             if e - s > max_chunk_size:
                 if group_start != -1 and group_end != -1:
                     chunks.append(
@@ -279,7 +274,6 @@ class PythonChunker:
                 chunks.extend(sub_chunks)
                 continue
 
-            # Accumulate interval into current group if under max_chunk_size
             if group_start == -1:
                 group_start, group_end = s, e
             elif e - group_start <= max_chunk_size:
