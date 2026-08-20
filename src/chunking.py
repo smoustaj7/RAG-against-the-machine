@@ -6,7 +6,7 @@ import re
 from pathlib import Path
 from typing import List, Union
 
-from src.chunk_store import Chunk
+from .chunk_store import Chunk
 
 
 SUPPORTED_EXTENSIONS = {".py", ".md", ".rst", ".txt"}
