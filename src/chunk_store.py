@@ -1,5 +1,3 @@
-"""Chunk store registry for storing and managing chunk metadata."""
-
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Union
 from pydantic import BaseModel
