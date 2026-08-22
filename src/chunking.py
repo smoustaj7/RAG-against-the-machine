@@ -1,5 +1,3 @@
-"""Chunking strategies for source code and documentation."""
-
 import ast
 import hashlib
 import re
