@@ -205,3 +205,85 @@ def test_markdown_chunker() -> None:
             ]
             == chunk.text
         )
+
+
+def test_python_chunker_includes_decorators() -> None:
+    """Decorators must be included in the same chunk as their function."""
+    code = (
+        "import os\n\n"
+        "@staticmethod\n"
+        "@some_decorator(arg=1)\n"
+        "def decorated_func():\n"
+        '    return "hello"\n'
+    )
+    file_hash = compute_file_hash(code)
+
+    chunks = PythonChunker.chunk(
+        file_path="deco.py",
+        content=code,
+        file_hash=file_hash,
+        max_chunk_size=2000,
+    )
+
+    assert len(chunks) > 0
+    # Find the chunk that contains the function body.
+    func_chunks = [c for c in chunks if "decorated_func" in c.text]
+    assert len(func_chunks) == 1
+    # The decorator text must be in the same chunk.
+    assert "@staticmethod" in func_chunks[0].text
+    assert "@some_decorator" in func_chunks[0].text
+
+
+def test_rst_chunker() -> None:
+    """MarkdownChunker should split on RST-style underline headers."""
+    rst_content = (
+        "Title\n"
+        "=====\n\n"
+        "Introduction paragraph under the title.\n\n"
+        "Subtitle\n"
+        "--------\n\n"
+        "Content under the subtitle.\n"
+    )
+
+    chunks = chunk_file(
+        file_path="doc.rst",
+        content=rst_content,
+        max_chunk_size=80,
+    )
+
+    assert len(chunks) > 0
+    for chunk in chunks:
+        assert len(chunk.text) <= 80
+        assert (
+            rst_content[
+                chunk.first_character_index:chunk.last_character_index
+            ]
+            == chunk.text
+        )
+    # There should be at least 2 chunks (one per header section).
+    assert len(chunks) >= 2
+
+
+def test_full_coverage_invariant() -> None:
+    """The union of all chunk spans must cover the entire file content."""
+    content = (
+        "# Header\n\n"
+        "Some text.\n\n"
+        "## Another Header\n\n"
+        "More text.\n"
+    )
+    chunks = chunk_file(
+        file_path="coverage.md",
+        content=content,
+        max_chunk_size=2000,
+    )
+
+    # Collect all covered character positions.
+    covered = set()
+    for chunk in chunks:
+        for i in range(chunk.first_character_index, chunk.last_character_index):
+            covered.add(i)
+
+    # Every position in the content must be covered.
+    for i in range(len(content)):
+        assert i in covered, f"Position {i} not covered by any chunk"

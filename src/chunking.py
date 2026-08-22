@@ -2,7 +2,7 @@ import ast
 import hashlib
 import re
 from pathlib import Path
-from typing import List, Union
+from typing import List, Optional, Tuple, Union
 
 from .chunk_store import Chunk
 
@@ -90,6 +90,81 @@ def create_chunk(
     )
 
 
+def _merge_intervals_into_chunks(
+    file_path: str,
+    content: str,
+    file_hash: str,
+    intervals: List[Tuple[int, int]],
+    max_chunk_size: int,
+) -> List[Chunk]:
+    """Merge a list of (start, end) intervals into chunks respecting max size.
+
+    Small consecutive intervals are grouped together.  Oversized intervals
+    are sub-chunked via TextChunker.
+    """
+    chunks: List[Chunk] = []
+    group_start: int = -1
+    group_end: int = -1
+
+    for s, e in intervals:
+        if s == e:
+            continue
+
+        if e - s > max_chunk_size:
+            # Flush any accumulated group first.
+            if group_start != -1 and group_end != -1:
+                chunks.append(
+                    create_chunk(
+                        file_path=file_path,
+                        first_idx=group_start,
+                        last_idx=group_end,
+                        text=content[group_start:group_end],
+                        file_hash=file_hash,
+                    )
+                )
+                group_start = -1
+                group_end = -1
+
+            sub_chunks = TextChunker.chunk(
+                file_path=file_path,
+                content=content[s:e],
+                file_hash=file_hash,
+                start_offset=s,
+                max_chunk_size=max_chunk_size,
+            )
+            chunks.extend(sub_chunks)
+            continue
+
+        if group_start == -1:
+            group_start, group_end = s, e
+        elif e - group_start <= max_chunk_size:
+            group_end = e
+        else:
+            chunks.append(
+                create_chunk(
+                    file_path=file_path,
+                    first_idx=group_start,
+                    last_idx=group_end,
+                    text=content[group_start:group_end],
+                    file_hash=file_hash,
+                )
+            )
+            group_start, group_end = s, e
+
+    if group_start != -1 and group_end != -1:
+        chunks.append(
+            create_chunk(
+                file_path=file_path,
+                first_idx=group_start,
+                last_idx=group_end,
+                text=content[group_start:group_end],
+                file_hash=file_hash,
+            )
+        )
+
+    return chunks
+
+
 class TextChunker:
     """Fallback recursive text chunker respecting max_chunk_size."""
 
@@ -123,7 +198,10 @@ class TextChunker:
                 for sep in separators:
                     if sep == "":
                         break
-                    idx = content.rfind(sep, start + actual_overlap, end)
+                    # Search the full window for a natural break point.
+                    # The overlap is applied when computing next_start,
+                    # not by restricting the search window.
+                    idx = content.rfind(sep, start, end)
                     if idx != -1 and idx > start:
                         end = idx + len(sep)
                         cut_found = True
@@ -191,19 +269,43 @@ class PythonChunker:
                 max_chunk_size=max_chunk_size,
             )
 
-        line_starts = PythonChunker._compute_line_starts(content)
+        line_starts = cls._compute_line_starts(content)
 
-        def get_node_offsets(node: ast.AST) -> tuple[int, int]:
+        def _line_col_to_offset(
+            lineno: int, col_offset: int
+        ) -> int:
+            return line_starts[lineno - 1] + col_offset
+
+        def get_node_offsets(node: ast.AST) -> Tuple[int, int]:
+            """Return (start, end) byte offsets, including decorators."""
             lineno = getattr(node, "lineno", 1)
             col_offset = getattr(node, "col_offset", 0)
             end_lineno = getattr(node, "end_lineno", lineno)
-            end_col_offset = getattr(node, "end_col_offset", col_offset)
+            end_col_offset = getattr(
+                node, "end_col_offset", col_offset
+            )
 
-            start = line_starts[lineno - 1] + col_offset
-            end = line_starts[end_lineno - 1] + end_col_offset
+            start = _line_col_to_offset(lineno, col_offset)
+
+            # Include decorators: they precede the def/class keyword
+            # and are semantically part of the node.
+            decorator_list: List[ast.AST] = getattr(
+                node, "decorator_list", []
+            )
+            for dec in decorator_list:
+                dec_lineno = getattr(dec, "lineno", lineno)
+                dec_col = getattr(dec, "col_offset", 0)
+                # The @ character is at col_offset - 1 on that line
+                # but col_offset already points to the decorator name.
+                # Use the start of the line for the @ symbol.
+                dec_start = line_starts[dec_lineno - 1]
+                if dec_start < start:
+                    start = dec_start
+
+            end = _line_col_to_offset(end_lineno, end_col_offset)
             return start, end
 
-        boundaries: List[tuple[int, int]] = []
+        boundaries: List[Tuple[int, int]] = []
         for body_item in tree.body:
             if hasattr(body_item, "lineno") and hasattr(
                 body_item, "end_lineno"
@@ -220,82 +322,70 @@ class PythonChunker:
                 max_chunk_size=max_chunk_size,
             )
 
-        intervals: List[tuple[int, int]] = []
+        # Build intervals, merging gap text (imports, blank lines,
+        # comments) into the *following* AST node so that context
+        # stays with the code that uses it rather than floating as a
+        # weak standalone micro-chunk.
+        intervals: List[Tuple[int, int]] = []
         curr = 0
         for s, e in boundaries:
-            if s > curr:
-                intervals.append((curr, s))
-            intervals.append((s, e))
+            # Any gap between curr and s is merged into this node's
+            # interval by starting from curr instead of s.
+            interval_start = curr if curr < s else s
+            intervals.append((interval_start, e))
             curr = max(curr, e)
         if curr < len(content):
-            intervals.append((curr, len(content)))
-
-        chunks: List[Chunk] = []
-        group_start: int = -1
-        group_end: int = -1
-
-        for s, e in intervals:
-            if s == e:
-                continue
-
-            if e - s > max_chunk_size:
-                if group_start != -1 and group_end != -1:
-                    chunks.append(
-                        create_chunk(
-                            file_path=file_path,
-                            first_idx=group_start,
-                            last_idx=group_end,
-                            text=content[group_start:group_end],
-                            file_hash=file_hash,
-                        )
-                    )
-                    group_start = -1
-                    group_end = -1
-
-                sub_chunks = TextChunker.chunk(
-                    file_path=file_path,
-                    content=content[s:e],
-                    file_hash=file_hash,
-                    start_offset=s,
-                    max_chunk_size=max_chunk_size,
-                )
-                chunks.extend(sub_chunks)
-                continue
-
-            if group_start == -1:
-                group_start, group_end = s, e
-            elif e - group_start <= max_chunk_size:
-                group_end = e
+            # Trailing content after the last AST node.
+            if intervals:
+                # Merge trailing content into the last interval.
+                last_start, _ = intervals[-1]
+                intervals[-1] = (last_start, len(content))
             else:
-                chunks.append(
-                    create_chunk(
-                        file_path=file_path,
-                        first_idx=group_start,
-                        last_idx=group_end,
-                        text=content[group_start:group_end],
-                        file_hash=file_hash,
-                    )
-                )
-                group_start, group_end = s, e
+                intervals.append((curr, len(content)))
 
-        if group_start != -1 and group_end != -1:
-            chunks.append(
-                create_chunk(
-                    file_path=file_path,
-                    first_idx=group_start,
-                    last_idx=group_end,
-                    text=content[group_start:group_end],
-                    file_hash=file_hash,
-                )
-            )
-
-        return chunks
+        return _merge_intervals_into_chunks(
+            file_path=file_path,
+            content=content,
+            file_hash=file_hash,
+            intervals=intervals,
+            max_chunk_size=max_chunk_size,
+        )
 
 
 class MarkdownChunker:
-    """Header-aware chunker for Markdown files."""
+    """Header-aware chunker for Markdown and RST files."""
 
-    HEADER_PATTERN = re.compile(r"^(#{1,6})\s+.*$", re.MULTILINE)
+    # Markdown: lines starting with 1-6 '#' characters.
+    _MD_HEADER = re.compile(r"^(#{1,6})\s+.*$", re.MULTILINE)
+
+    # RST: a text line followed by a line of =, -, ~, ^, or "
+    # characters (at least 3, same length or longer than the title).
+    _RST_HEADER = re.compile(
+        r"^(.+)\n([=\-~^\"]{3,})$", re.MULTILINE
+    )
+
+    @classmethod
+    def _find_split_positions(
+        cls, content: str
+    ) -> Optional[List[int]]:
+        """Return sorted split positions from headers, or None."""
+        md_matches = list(cls._MD_HEADER.finditer(content))
+        rst_matches = list(cls._RST_HEADER.finditer(content))
+
+        # Pick whichever format produced more matches.
+        if md_matches and len(md_matches) >= len(rst_matches):
+            matches = md_matches
+        elif rst_matches:
+            matches = rst_matches
+        else:
+            return None
+
+        split_indices = [0]
+        for m in matches:
+            if m.start() > 0 and m.start() not in split_indices:
+                split_indices.append(m.start())
+        split_indices.append(len(content))
+        return split_indices
 
     @classmethod
     def chunk(
@@ -308,83 +398,28 @@ class MarkdownChunker:
         if not content:
             return []
 
-        matches = list(cls.HEADER_PATTERN.finditer(content))
-        if not matches:
+        split_indices = cls._find_split_positions(content)
+        if split_indices is None:
             return TextChunker.chunk(
                 file_path=file_path,
                 content=content,
                 file_hash=file_hash,
                 max_chunk_size=max_chunk_size,
             )
-        split_indices = [0]
-        for m in matches:
-            if m.start() > 0 and m.start() not in split_indices:
-                split_indices.append(m.start())
-        split_indices.append(len(content))
 
-        intervals: List[tuple[int, int]] = []
+        intervals: List[Tuple[int, int]] = []
         for i in range(len(split_indices) - 1):
             s, e = split_indices[i], split_indices[i + 1]
             if s < e:
                 intervals.append((s, e))
 
-        chunks: List[Chunk] = []
-        group_start: int = -1
-        group_end: int = -1
-
-        for s, e in intervals:
-            if e - s > max_chunk_size:
-                if group_start != -1 and group_end != -1:
-                    chunks.append(
-                        create_chunk(
-                            file_path=file_path,
-                            first_idx=group_start,
-                            last_idx=group_end,
-                            text=content[group_start:group_end],
-                            file_hash=file_hash,
-                        )
-                    )
-                    group_start = -1
-                    group_end = -1
-
-                sub_chunks = TextChunker.chunk(
-                    file_path=file_path,
-                    content=content[s:e],
-                    file_hash=file_hash,
-                    start_offset=s,
-                    max_chunk_size=max_chunk_size,
-                )
-                chunks.extend(sub_chunks)
-                continue
-
-            if group_start == -1:
-                group_start, group_end = s, e
-            elif e - group_start <= max_chunk_size:
-                group_end = e
-            else:
-                chunks.append(
-                    create_chunk(
-                        file_path=file_path,
-                        first_idx=group_start,
-                        last_idx=group_end,
-                        text=content[group_start:group_end],
-                        file_hash=file_hash,
-                    )
-                )
-                group_start, group_end = s, e
-
-        if group_start != -1 and group_end != -1:
-            chunks.append(
-                create_chunk(
-                    file_path=file_path,
-                    first_idx=group_start,
-                    last_idx=group_end,
-                    text=content[group_start:group_end],
-                    file_hash=file_hash,
-                )
-            )
-
-        return chunks
+        return _merge_intervals_into_chunks(
+            file_path=file_path,
+            content=content,
+            file_hash=file_hash,
+            intervals=intervals,
+            max_chunk_size=max_chunk_size,
+        )
 
 
 def chunk_file(
