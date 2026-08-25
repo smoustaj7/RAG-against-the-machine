@@ -287,17 +287,11 @@ class PythonChunker:
 
             start = _line_col_to_offset(lineno, col_offset)
 
-            # Include decorators: they precede the def/class keyword
-            # and are semantically part of the node.
             decorator_list: List[ast.AST] = getattr(
                 node, "decorator_list", []
             )
             for dec in decorator_list:
                 dec_lineno = getattr(dec, "lineno", lineno)
-                dec_col = getattr(dec, "col_offset", 0)
-                # The @ character is at col_offset - 1 on that line
-                # but col_offset already points to the decorator name.
-                # Use the start of the line for the @ symbol.
                 dec_start = line_starts[dec_lineno - 1]
                 if dec_start < start:
                     start = dec_start
@@ -322,22 +316,14 @@ class PythonChunker:
                 max_chunk_size=max_chunk_size,
             )
 
-        # Build intervals, merging gap text (imports, blank lines,
-        # comments) into the *following* AST node so that context
-        # stays with the code that uses it rather than floating as a
-        # weak standalone micro-chunk.
         intervals: List[Tuple[int, int]] = []
         curr = 0
         for s, e in boundaries:
-            # Any gap between curr and s is merged into this node's
-            # interval by starting from curr instead of s.
             interval_start = curr if curr < s else s
             intervals.append((interval_start, e))
             curr = max(curr, e)
         if curr < len(content):
-            # Trailing content after the last AST node.
             if intervals:
-                # Merge trailing content into the last interval.
                 last_start, _ = intervals[-1]
                 intervals[-1] = (last_start, len(content))
             else:
@@ -355,11 +341,8 @@ class PythonChunker:
 class MarkdownChunker:
     """Header-aware chunker for Markdown and RST files."""
 
-    # Markdown: lines starting with 1-6 '#' characters.
     _MD_HEADER = re.compile(r"^(#{1,6})\s+.*$", re.MULTILINE)
 
-    # RST: a text line followed by a line of =, -, ~, ^, or "
-    # characters (at least 3, same length or longer than the title).
     _RST_HEADER = re.compile(
         r"^(.+)\n([=\-~^\"]{3,})$", re.MULTILINE
     )
@@ -368,11 +351,9 @@ class MarkdownChunker:
     def _find_split_positions(
         cls, content: str
     ) -> Optional[List[int]]:
-        """Return sorted split positions from headers, or None."""
         md_matches = list(cls._MD_HEADER.finditer(content))
         rst_matches = list(cls._RST_HEADER.finditer(content))
 
-        # Pick whichever format produced more matches.
         if md_matches and len(md_matches) >= len(rst_matches):
             matches = md_matches
         elif rst_matches:
