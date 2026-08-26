@@ -62,20 +62,20 @@ Design rule behind every phase: **separate chunk storage from index structure, a
 ## Phase 3 — Lexical Indexing
 **Satisfies:** VI.1 Indexing (retrieval method), Performances (indexing ≤5 min)
 
-- [ ] `src/retrieval/base.py`: abstract `Retriever` interface —
+- [x] `src/retrieval/base.py`: abstract `Retriever` interface —
   ```python
   class Retriever(ABC):
       def index(self, chunks: dict[str, Chunk]) -> None: ...
       def search(self, query: str, k: int) -> list[tuple[str, float]]: ...
   ```
-- [ ] `src/retrieval/lexical.py`: `BM25Retriever` (or TF-IDF) implementing that interface
-- [ ] Tokenizer that handles code identifiers sensibly (split `snake_case`, `camelCase`, punctuation) — shared by both chunk types
-- [ ] `src/indexer.py`: orchestrates walk → chunk → tokenize → fit retriever → persist
-- [ ] Persist as **separate artifacts** under `data/processed/`:
+- [x] `src/retrieval/lexical.py`: `BM25Retriever` (or TF-IDF) implementing that interface
+- [x] Tokenizer that handles code identifiers sensibly (split `snake_case`, `camelCase`, punctuation) — shared by both chunk types
+- [x] `src/indexer.py`: orchestrates walk → chunk → tokenize → fit retriever → persist
+- [x] Persist as **separate artifacts** under `data/processed/`:
   - chunk registry (e.g. `chunks.jsonl`, includes `file_hash`)
   - fitted lexical index (e.g. `bm25_index.pkl`)
-- [ ] `tqdm` progress bars on file walk + chunking + indexing
-- [ ] Graceful handling: unreadable files, empty files, non-UTF8 content
+- [x] `tqdm` progress bars on file walk + chunking + indexing
+- [x] Graceful handling: unreadable files, empty files, non-UTF8 content
 
 **Definition of done:** `uv run python -m src index --max_chunk_size 2000` completes in well under 5 minutes and produces both artifacts.
 
