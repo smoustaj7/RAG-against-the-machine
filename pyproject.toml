@@ -41,6 +41,14 @@ disallow_untyped_defs = false
 module = "fire.*"
 ignore_missing_imports = true
 
+[[tool.mypy.overrides]]
+module = "rank_bm25.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "tqdm.*"
+ignore_missing_imports = true
+
 
 [[tool.uv.index]]
 name = "pytorch-cpu"
