@@ -1,0 +1,3105 @@
+{
+  "search_results": [
+    {
+      "question_id": "17526382-7764-4120-b5e8-2d3726b8a4da",
+      "question": "What HTTP endpoint is used to dynamically load a LoRA adapter in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/lora.md",
+          "first_character_index": 4695,
+          "last_character_index": 6100
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/plugins/lora_resolvers/README.md",
+          "first_character_index": 0,
+          "last_character_index": 830
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/lora.md",
+          "first_character_index": 6100,
+          "last_character_index": 8082
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/lora.md",
+          "first_character_index": 4075,
+          "last_character_index": 4695
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/entrypoints/openai/serving_models.py",
+          "first_character_index": 7666,
+          "last_character_index": 9551
+        }
+      ]
+    },
+    {
+      "question_id": "cc83c230-099f-4c11-aeab-8c09715c5942",
+      "question": "What command can be used to evaluate the accuracy of a quantized model using lm_eval with vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/int4.md",
+          "first_character_index": 3387,
+          "last_character_index": 3974
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/tpu/test_quantization_accuracy.py",
+          "first_character_index": 0,
+          "last_character_index": 1603
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/fp8.md",
+          "first_character_index": 3163,
+          "last_character_index": 4565
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/int8.md",
+          "first_character_index": 2439,
+          "last_character_index": 4410
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/quark.md",
+          "first_character_index": 6638,
+          "last_character_index": 8033
+        }
+      ]
+    },
+    {
+      "question_id": "5ea5c01a-c953-4477-ae3a-978e20bd73b8",
+      "question": "What method does vLLM's LLM class provide for generating embedding vectors from prompts?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/entrypoints/llm.py",
+          "first_character_index": 52168,
+          "last_character_index": 53779
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/automatic_prefix_caching.md",
+          "first_character_index": 1557,
+          "last_character_index": 2067
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/entrypoints/llm.py",
+          "first_character_index": 53579,
+          "last_character_index": 55552
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/benchmarks/benchmark_prefix_caching.py",
+          "first_character_index": 8344,
+          "last_character_index": 8691
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/offline_inference/prefix_caching.py",
+          "first_character_index": 1293,
+          "last_character_index": 3069
+        }
+      ]
+    },
+    {
+      "question_id": "7c43f334-9999-42b3-935f-11320dc75270",
+      "question": "What hardware platforms does vLLM support?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/supported_hardware.md",
+          "first_character_index": 1859,
+          "last_character_index": 2698
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/supported_hardware.md",
+          "first_character_index": 0,
+          "last_character_index": 221
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/supported_hardware.md",
+          "first_character_index": 21,
+          "last_character_index": 221
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/quantization/test_fp8.py",
+          "first_character_index": 5036,
+          "last_character_index": 6476
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/gpu/rocm.inc.md",
+          "first_character_index": 9148,
+          "last_character_index": 9358
+        }
+      ]
+    },
+    {
+      "question_id": "81e37f26-1203-40ad-a848-764d187d083f",
+      "question": "What are the differences between mm_kwargs and tok_kwargs when using the _call_hf_processor method in vLLM multimodal processing?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/model/multimodal.md",
+          "first_character_index": 24652,
+          "last_character_index": 25723
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/model/multimodal.md",
+          "first_character_index": 22895,
+          "last_character_index": 24852
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/models/qwen_vl.py",
+          "first_character_index": 19418,
+          "last_character_index": 21371
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/models/llava_onevision.py",
+          "first_character_index": 9503,
+          "last_character_index": 11209
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/models/mllama4.py",
+          "first_character_index": 20406,
+          "last_character_index": 21667
+        }
+      ]
+    },
+    {
+      "question_id": "716dd176-b2d7-4613-825a-4ac84b01aab7",
+      "question": "Where can I find information about using generative models in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/supported_models.md",
+          "first_character_index": 10399,
+          "last_character_index": 12368
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/supported_models.md",
+          "first_character_index": 33190,
+          "last_character_index": 34913
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/supported_models.md",
+          "first_character_index": 24435,
+          "last_character_index": 24767
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/offline_inference.md",
+          "first_character_index": 0,
+          "last_character_index": 799
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/models/language/pooling/test_gritlm.py",
+          "first_character_index": 3483,
+          "last_character_index": 4857
+        }
+      ]
+    },
+    {
+      "question_id": "29a0969f-e8f1-44ee-ada8-3824a1f62360",
+      "question": "How is the number of placeholder feature tokens for an image calculated in vLLM's multimodal implementation?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/mm_processing.md",
+          "first_character_index": 0,
+          "last_character_index": 1624
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/model/multimodal.md",
+          "first_character_index": 6389,
+          "last_character_index": 8199
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/multimodal/processing.py",
+          "first_character_index": 8256,
+          "last_character_index": 10191
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/model/multimodal.md",
+          "first_character_index": 7999,
+          "last_character_index": 9833
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/multimodal/processing.py",
+          "first_character_index": 6520,
+          "last_character_index": 8256
+        }
+      ]
+    },
+    {
+      "question_id": "5fcddb53-d6d0-4ef2-a4bf-b69790561af2",
+      "question": "What parallelism strategy does vLLM support for large-scale deployment of Mixture of Experts models?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/parallelism_scaling.md",
+          "first_character_index": 2554,
+          "last_character_index": 4287
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/expert_parallel_deployment.md",
+          "first_character_index": 0,
+          "last_character_index": 1958
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/configuration/optimization.md",
+          "first_character_index": 5719,
+          "last_character_index": 7386
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/configuration/optimization.md",
+          "first_character_index": 4250,
+          "last_character_index": 5719
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tools/ep_kernels/README.md",
+          "first_character_index": 0,
+          "last_character_index": 1370
+        }
+      ]
+    },
+    {
+      "question_id": "07f706fd-0dcc-4a56-a5ac-cd94ad1c8185",
+      "question": "How do you achieve reproducible results in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/usage/reproducibility.md",
+          "first_character_index": 0,
+          "last_character_index": 1914
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/offline_inference/reproducibility.py",
+          "first_character_index": 0,
+          "last_character_index": 1323
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/kernels/moe/test_moe_align_block_size.py",
+          "first_character_index": 11133,
+          "last_character_index": 12174
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/disagg_prefill.md",
+          "first_character_index": 0,
+          "last_character_index": 1116
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/offline_inference/async_llm_streaming.py",
+          "first_character_index": 688,
+          "last_character_index": 2261
+        }
+      ]
+    },
+    {
+      "question_id": "2afc1d73-f2a8-410f-ac60-e7721be5094b",
+      "question": "Where can I find vLLM setup and installation instructions for Google TPU?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/configuration/tpu.md",
+          "first_character_index": 0,
+          "last_character_index": 1883
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/offline_inference/profiling_tpu/README.md",
+          "first_character_index": 0,
+          "last_character_index": 1883
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/google_tpu.md",
+          "first_character_index": 5509,
+          "last_character_index": 6286
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/google_tpu.md",
+          "first_character_index": 3715,
+          "last_character_index": 5709
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/google_tpu.md",
+          "first_character_index": 0,
+          "last_character_index": 1909
+        }
+      ]
+    },
+    {
+      "question_id": "b336583e-9dcd-44cc-aa87-a2337f0f2d7d",
+      "question": "What parameter does vLLM set according to different quantization schemes to support weight quantization in linear layers?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/model/basic.md",
+          "first_character_index": 5734,
+          "last_character_index": 6112
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/layers/quantization/compressed_tensors/schemes/compressed_tensors_w8a8_int8.py",
+          "first_character_index": 0,
+          "last_character_index": 804
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/layers/quantization/compressed_tensors/schemes/compressed_tensors_24.py",
+          "first_character_index": 0,
+          "last_character_index": 1399
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/layers/quantization/quark/schemes/quark_w8a8_int8.py",
+          "first_character_index": 0,
+          "last_character_index": 707
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/layers/quantization/compressed_tensors/schemes/compressed_tensors_w8a16_fp8.py",
+          "first_character_index": 0,
+          "last_character_index": 905
+        }
+      ]
+    },
+    {
+      "question_id": "452261bc-6ce4-469e-a9b2-fcddbe26b944",
+      "question": "What is the main configuration object that is passed around in vLLM's class hierarchy?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/arch_overview.md",
+          "first_character_index": 4810,
+          "last_character_index": 6141
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/distributed/test_same_node.py",
+          "first_character_index": 0,
+          "last_character_index": 1272
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/generative_models.md",
+          "first_character_index": 0,
+          "last_character_index": 943
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/transformers_utils/configs/ovis.py",
+          "first_character_index": 0,
+          "last_character_index": 487
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/configuration/README.md",
+          "first_character_index": 0,
+          "last_character_index": 335
+        }
+      ]
+    },
+    {
+      "question_id": "48c25d8b-d2f1-4c65-ace8-fcf586a38afb",
+      "question": "How do you build and run a vLLM Docker image for s390x CPU architecture?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/cpu/s390x.inc.md",
+          "first_character_index": 0,
+          "last_character_index": 834
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/gpu/rocm.inc.md",
+          "first_character_index": 7075,
+          "last_character_index": 9022
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/cpu/arm.inc.md",
+          "first_character_index": 0,
+          "last_character_index": 1637
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/cpu.md",
+          "first_character_index": 0,
+          "last_character_index": 1761
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/cpu/s390x.inc.md",
+          "first_character_index": 834,
+          "last_character_index": 2676
+        }
+      ]
+    },
+    {
+      "question_id": "4d0f06a5-e010-4b6a-bc27-35d2c75eb39f",
+      "question": "What interface should a multimodal model class inherit from in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/worker/worker_base.py",
+          "first_character_index": 8924,
+          "last_character_index": 10920
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/models/interfaces_base.py",
+          "first_character_index": 0,
+          "last_character_index": 1630
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/layers/mamba/abstract.py",
+          "first_character_index": 0,
+          "last_character_index": 1068
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/model/multimodal.md",
+          "first_character_index": 5541,
+          "last_character_index": 6389
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/model/registration.md",
+          "first_character_index": 1655,
+          "last_character_index": 2088
+        }
+      ]
+    },
+    {
+      "question_id": "d7e28c25-761b-48a0-ade1-a5e459999fe2",
+      "question": "What is stored in the logits array during the qk_max calculation in vLLM's paged attention implementation?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/paged_attention.md",
+          "first_character_index": 0,
+          "last_character_index": 1498
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/attention/backends/abstract.py",
+          "first_character_index": 3148,
+          "last_character_index": 4804
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/attention/ops/paged_attn.py",
+          "first_character_index": 0,
+          "last_character_index": 1170
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/paged_attention.md",
+          "first_character_index": 10059,
+          "last_character_index": 11147
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/attention/backends/flashinfer.py",
+          "first_character_index": 36980,
+          "last_character_index": 38768
+        }
+      ]
+    },
+    {
+      "question_id": "65078294-e236-4983-b9be-068e8816d9df",
+      "question": "How do you use GPTQModel quantized models with vLLM's Python API?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/gptqmodel.md",
+          "first_character_index": 2975,
+          "last_character_index": 4033
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/bitblas.md",
+          "first_character_index": 0,
+          "last_character_index": 1671
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/modelopt.md",
+          "first_character_index": 462,
+          "last_character_index": 2356
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/gptqmodel.md",
+          "first_character_index": 0,
+          "last_character_index": 1584
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/quantization/test_gptq_dynamic.py",
+          "first_character_index": 0,
+          "last_character_index": 1033
+        }
+      ]
+    },
+    {
+      "question_id": "a3ee1a66-4718-4f65-a9d9-ca12cc4c876d",
+      "question": "How can you manually set the attention backend in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/quickstart.md",
+          "first_character_index": 10780,
+          "last_character_index": 11526
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/config/cache.py",
+          "first_character_index": 1247,
+          "last_character_index": 3211
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/kernels/test_flex_attention.py",
+          "first_character_index": 660,
+          "last_character_index": 2510
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/kernels/attention/test_encoder_decoder_attn.py",
+          "first_character_index": 0,
+          "last_character_index": 1450
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/compile/test_functionalization.py",
+          "first_character_index": 1317,
+          "last_character_index": 3167
+        }
+      ]
+    },
+    {
+      "question_id": "54131f31-356c-476c-a227-ecab17e95978",
+      "question": "What is the fastest matrix multiplication kernel in vLLM's torch compile autotuning for an 8x2048 by 2048x3072 matrix multiplication?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/_custom_ops.py",
+          "first_character_index": 30270,
+          "last_character_index": 31890
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/_custom_ops.py",
+          "first_character_index": 36048,
+          "last_character_index": 37377
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/layers/fused_moe/moe_align_block_size.py",
+          "first_character_index": 254,
+          "last_character_index": 2174
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/layers/fused_moe/fused_moe.py",
+          "first_character_index": 3900,
+          "last_character_index": 5833
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/layers/fused_moe/fused_moe.py",
+          "first_character_index": 12500,
+          "last_character_index": 14433
+        }
+      ]
+    },
+    {
+      "question_id": "598c5d47-56a5-4cc6-8c01-fab2b02c221d",
+      "question": "How do you pass audio inputs to vLLM for multimodal inference?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/multimodal_inputs.md",
+          "first_character_index": 8690,
+          "last_character_index": 8879
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/models/ultravox.py",
+          "first_character_index": 22697,
+          "last_character_index": 24685
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/lora.md",
+          "first_character_index": 12946,
+          "last_character_index": 14472
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/models/gemma3n_mm.py",
+          "first_character_index": 24188,
+          "last_character_index": 26043
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/lora.md",
+          "first_character_index": 11500,
+          "last_character_index": 13146
+        }
+      ]
+    },
+    {
+      "question_id": "f17a76af-6ca5-4fee-b80f-8f969e6c2585",
+      "question": "What are the key capabilities of Ray Serve LLM for vLLM deployment?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/openai_compatible_server.md",
+          "first_character_index": 27171,
+          "last_character_index": 27921
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/online_serving/ray_serve_deepseek.py",
+          "first_character_index": 0,
+          "last_character_index": 1869
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/parallelism_scaling.md",
+          "first_character_index": 2554,
+          "last_character_index": 4287
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/deployment/integrations/kuberay.md",
+          "first_character_index": 0,
+          "last_character_index": 1446
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/deployment/k8s.md",
+          "first_character_index": 0,
+          "last_character_index": 1047
+        }
+      ]
+    },
+    {
+      "question_id": "a4aa0cc8-ab95-4c66-af21-77bb9774e4b7",
+      "question": "How can you view Nsight Systems profiles in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/profiling.md",
+          "first_character_index": 4932,
+          "last_character_index": 5308
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/profiling.md",
+          "first_character_index": 1956,
+          "last_character_index": 3868
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/profiling.md",
+          "first_character_index": 5108,
+          "last_character_index": 5308
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/third_party/pynvml.py",
+          "first_character_index": 228398,
+          "last_character_index": 230344
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/third_party/pynvml.py",
+          "first_character_index": 230344,
+          "last_character_index": 232057
+        }
+      ]
+    },
+    {
+      "question_id": "90939e22-7490-40f0-9cad-3cd8173a6c95",
+      "question": "What quantization parameter should be specified when loading a Quark quantized model in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/quark.md",
+          "first_character_index": 8947,
+          "last_character_index": 10272
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/quantization/test_quark.py",
+          "first_character_index": 0,
+          "last_character_index": 1553
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/layers/quantization/quark/quark.py",
+          "first_character_index": 2921,
+          "last_character_index": 4655
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/layers/quantization/quark/schemes/quark_w8a8_fp8.py",
+          "first_character_index": 0,
+          "last_character_index": 789
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/layers/quantization/quark/schemes/quark_w4a4_mxfp4.py",
+          "first_character_index": 0,
+          "last_character_index": 681
+        }
+      ]
+    },
+    {
+      "question_id": "74de08d1-3bf7-43de-a74c-1eac844bc063",
+      "question": "How do you enable GPUDirect RDMA in vLLM using Docker?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/parallelism_scaling.md",
+          "first_character_index": 8767,
+          "last_character_index": 10582
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/usage/troubleshooting.md",
+          "first_character_index": 13685,
+          "last_character_index": 15156
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/deployment/docker.md",
+          "first_character_index": 2328,
+          "last_character_index": 3235
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/parallelism_scaling.md",
+          "first_character_index": 10382,
+          "last_character_index": 11003
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/gpu/rocm.inc.md",
+          "first_character_index": 0,
+          "last_character_index": 786
+        }
+      ]
+    },
+    {
+      "question_id": "d1501d52-b446-4c93-b66e-bea705efbe94",
+      "question": "What git commit should I checkout when installing Triton flash attention for ROCm with vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/gpu/rocm.inc.md",
+          "first_character_index": 2585,
+          "last_character_index": 4370
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/gpu/rocm.inc.md",
+          "first_character_index": 786,
+          "last_character_index": 2785
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/attention/backends/rocm_flash_attn.py",
+          "first_character_index": 19894,
+          "last_character_index": 21673
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/gpu/rocm.inc.md",
+          "first_character_index": 4170,
+          "last_character_index": 5386
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/attention/backends/rocm_flash_attn.py",
+          "first_character_index": 18849,
+          "last_character_index": 20094
+        }
+      ]
+    },
+    {
+      "question_id": "251e3c3f-d368-4e71-85dd-c20013fedebd",
+      "question": "What is the purpose of vLLM's plugin system?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/plugin_system.md",
+          "first_character_index": 0,
+          "last_character_index": 949
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/plugin_system.md",
+          "first_character_index": 949,
+          "last_character_index": 2885
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/lora.md",
+          "first_character_index": 7882,
+          "last_character_index": 9116
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/model/registration.md",
+          "first_character_index": 0,
+          "last_character_index": 1655
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/lora.md",
+          "first_character_index": 6100,
+          "last_character_index": 8082
+        }
+      ]
+    },
+    {
+      "question_id": "d56e34ca-85e9-4199-b4b7-24f6440318f5",
+      "question": "How can you check if a model is natively supported in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/supported_models.md",
+          "first_character_index": 6664,
+          "last_character_index": 8466
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/supported_models.md",
+          "first_character_index": 0,
+          "last_character_index": 597
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/models/interfaces.py",
+          "first_character_index": 22222,
+          "last_character_index": 24168
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/supported_models.md",
+          "first_character_index": 2005,
+          "last_character_index": 3368
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/platforms/cpu.py",
+          "first_character_index": 1613,
+          "last_character_index": 3549
+        }
+      ]
+    },
+    {
+      "question_id": "4bf223ec-d359-4252-8930-a65db8afcfd1",
+      "question": "What backends does vLLM support for generating structured outputs?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/structured_outputs.md",
+          "first_character_index": 0,
+          "last_character_index": 311
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/automatic_prefix_caching.md",
+          "first_character_index": 1557,
+          "last_character_index": 2067
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/v1/engine/processor.py",
+          "first_character_index": 4465,
+          "last_character_index": 6319
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/v1/entrypoints/llm/test_struct_output_generate.py",
+          "first_character_index": 2488,
+          "last_character_index": 4456
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/online_serving/structured_outputs/README.md",
+          "first_character_index": 0,
+          "last_character_index": 1462
+        }
+      ]
+    },
+    {
+      "question_id": "44c05b2c-beec-474d-ad77-8321c26a29a9",
+      "question": "What minimum CUDA compiler version is required for building cutlass_scaled_mm kernels for Blackwell SM100 in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/CMakeLists.txt",
+          "first_character_index": 17747,
+          "last_character_index": 19386
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/CMakeLists.txt",
+          "first_character_index": 27316,
+          "last_character_index": 29263
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/CMakeLists.txt",
+          "first_character_index": 25255,
+          "last_character_index": 26485
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/CMakeLists.txt",
+          "first_character_index": 16300,
+          "last_character_index": 17947
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/CMakeLists.txt",
+          "first_character_index": 21474,
+          "last_character_index": 23282
+        }
+      ]
+    },
+    {
+      "question_id": "8b40c55a-1e2e-4865-834b-167932a5097f",
+      "question": "What Python environment manager is recommended for vLLM installation?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/gpu/rocm.inc.md",
+          "first_character_index": 0,
+          "last_character_index": 786
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/quickstart.md",
+          "first_character_index": 0,
+          "last_character_index": 1991
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/gpu/cuda.inc.md",
+          "first_character_index": 0,
+          "last_character_index": 1025
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/python_env_setup.inc.md",
+          "first_character_index": 0,
+          "last_character_index": 413
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/gpu.md",
+          "first_character_index": 0,
+          "last_character_index": 1828
+        }
+      ]
+    },
+    {
+      "question_id": "22777170-ee96-4628-89f2-2c0e94fd7f20",
+      "question": "What runner parameter is required when serving the DSE-Qwen2-MRL model in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/openai_compatible_server.md",
+          "first_character_index": 11658,
+          "last_character_index": 12628
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/online_serving/openai_chat_embedding_client_for_multimodal.py",
+          "first_character_index": 2752,
+          "last_character_index": 3626
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/online_serving/openai_chat_embedding_client_for_multimodal.py",
+          "first_character_index": 1041,
+          "last_character_index": 2752
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/models/multimodal/pooling/test_dse_qwen2_vl.py",
+          "first_character_index": 0,
+          "last_character_index": 1863
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/models/registry.py",
+          "first_character_index": 19743,
+          "last_character_index": 20972
+        }
+      ]
+    },
+    {
+      "question_id": "87790ff0-09f3-4aa6-8f8e-83180ded4c40",
+      "question": "What is the minimum version of bitsandbytes required for vLLM quantization?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/layers/quantization/bitsandbytes.py",
+          "first_character_index": 7144,
+          "last_character_index": 9063
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/model_loader/bitsandbytes_loader.py",
+          "first_character_index": 6617,
+          "last_character_index": 8525
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/layers/quantization/bitsandbytes.py",
+          "first_character_index": 15890,
+          "last_character_index": 17376
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/config/__init__.py",
+          "first_character_index": 52137,
+          "last_character_index": 53609
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/models/registry.py",
+          "first_character_index": 384,
+          "last_character_index": 2230
+        }
+      ]
+    },
+    {
+      "question_id": "31c0d1fa-b91b-4b9e-b616-19476a4485b0",
+      "question": "How can you make a vLLM model compatible with both old and new versions of vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/arch_overview.md",
+          "first_character_index": 7740,
+          "last_character_index": 8686
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/arch_overview.md",
+          "first_character_index": 8486,
+          "last_character_index": 10194
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/supported_models.md",
+          "first_character_index": 44911,
+          "last_character_index": 46855
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/RELEASE.md",
+          "first_character_index": 0,
+          "last_character_index": 1789
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/models/plamo2.py",
+          "first_character_index": 33853,
+          "last_character_index": 34792
+        }
+      ]
+    },
+    {
+      "question_id": "2d8e04da-8f89-4654-bc2d-118a3aa3512e",
+      "question": "What is the primary motivation behind the Modular Kernel framework in vLLM's FusedMoE implementation?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/fused_moe_modular_kernel.md",
+          "first_character_index": 1786,
+          "last_character_index": 2894
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/fused_moe_modular_kernel.md",
+          "first_character_index": 13819,
+          "last_character_index": 15519
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/fused_moe_modular_kernel.md",
+          "first_character_index": 15519,
+          "last_character_index": 16917
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/fused_moe_modular_kernel.md",
+          "first_character_index": 6177,
+          "last_character_index": 8138
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/layers/fused_moe/modular_kernel.py",
+          "first_character_index": 517,
+          "last_character_index": 2494
+        }
+      ]
+    },
+    {
+      "question_id": "8e131a8f-7466-42a7-bd76-a1bb5f32f988",
+      "question": "How many inner iterations does a warp need to handle a whole block of value tokens in vLLM's paged attention when BLOCK_SIZE is 16, V_VEC_SIZE is 8, HEAD_SIZE is 128, and WARP_SIZE is 32?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/paged_attention.md",
+          "first_character_index": 17070,
+          "last_character_index": 18523
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/paged_attention.md",
+          "first_character_index": 15674,
+          "last_character_index": 17270
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/paged_attention.md",
+          "first_character_index": 5498,
+          "last_character_index": 6903
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/paged_attention.md",
+          "first_character_index": 8405,
+          "last_character_index": 10259
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/paged_attention.md",
+          "first_character_index": 6903,
+          "last_character_index": 8405
+        }
+      ]
+    },
+    {
+      "question_id": "2fca0ee8-4ffa-4d5a-a15d-cce139f08f38",
+      "question": "What endpoint does vLLM use to expose production metrics?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/usage/metrics.md",
+          "first_character_index": 0,
+          "last_character_index": 1841
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/metrics.md",
+          "first_character_index": 0,
+          "last_character_index": 988
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/entrypoints/openai/cli_args.py",
+          "first_character_index": 7508,
+          "last_character_index": 9273
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/metrics.md",
+          "first_character_index": 20167,
+          "last_character_index": 21228
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/metrics.md",
+          "first_character_index": 11784,
+          "last_character_index": 13716
+        }
+      ]
+    },
+    {
+      "question_id": "2a165588-2d3d-4d50-9516-0efa08fd7900",
+      "question": "How do you build and install vLLM from source for AWS Neuron?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/aws_neuron.md",
+          "first_character_index": 2318,
+          "last_character_index": 3988
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/aws_neuron.md",
+          "first_character_index": 0,
+          "last_character_index": 804
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/README.md",
+          "first_character_index": 0,
+          "last_character_index": 1157
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/gpu/cuda.inc.md",
+          "first_character_index": 12451,
+          "last_character_index": 14001
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/cpu/s390x.inc.md",
+          "first_character_index": 834,
+          "last_character_index": 2676
+        }
+      ]
+    },
+    {
+      "question_id": "3aff1593-e6cf-45ab-8cba-8858d3f98b06",
+      "question": "What are the two main reasons for using disaggregated prefilling in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/disagg_prefill.md",
+          "first_character_index": 0,
+          "last_character_index": 1116
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/disagg_prefill.md",
+          "first_character_index": 2755,
+          "last_character_index": 4664
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/distributed/kv_transfer/README.md",
+          "first_character_index": 1754,
+          "last_character_index": 2006
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/disagg_prefill.md",
+          "first_character_index": 1116,
+          "last_character_index": 2755
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/disagg_prefill.md",
+          "first_character_index": 4986,
+          "last_character_index": 5893
+        }
+      ]
+    },
+    {
+      "question_id": "b8006621-c08c-4ada-a80b-586fc3e5b4e9",
+      "question": "Where can I find information about debugging distributed vLLM deployments?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/parallelism_scaling.md",
+          "first_character_index": 11003,
+          "last_character_index": 11171
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/distributed_troubleshooting.md",
+          "first_character_index": 1377,
+          "last_character_index": 2106
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/usage/troubleshooting.md",
+          "first_character_index": 0,
+          "last_character_index": 1850
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/parallelism_scaling.md",
+          "first_character_index": 4287,
+          "last_character_index": 5376
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/distributed_troubleshooting.md",
+          "first_character_index": 0,
+          "last_character_index": 1377
+        }
+      ]
+    },
+    {
+      "question_id": "5c579258-59df-4bc6-af98-2a13f57d7b70",
+      "question": "How do you configure default multimodal LoRAs when starting the vLLM server?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/others/logging_configuration.md",
+          "first_character_index": 0,
+          "last_character_index": 1592
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/lora.md",
+          "first_character_index": 12946,
+          "last_character_index": 14472
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/lora.md",
+          "first_character_index": 11500,
+          "last_character_index": 13146
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/benchmarks/benchmark_serving.py",
+          "first_character_index": 45856,
+          "last_character_index": 47185
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/envs.py",
+          "first_character_index": 15263,
+          "last_character_index": 16942
+        }
+      ]
+    },
+    {
+      "question_id": "10f95271-664c-4fc9-b63c-bbb17fe10150",
+      "question": "What flag do you need to specify when serving a reasoning model in vLLM to extract reasoning content?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/reasoning_outputs.md",
+          "first_character_index": 1673,
+          "last_character_index": 3270
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/reasoning_outputs.md",
+          "first_character_index": 5023,
+          "last_character_index": 6485
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/reasoning/deepseek_r1_reasoning_parser.py",
+          "first_character_index": 4531,
+          "last_character_index": 6387
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/reasoning/granite_reasoning_parser.py",
+          "first_character_index": 2274,
+          "last_character_index": 3964
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/reasoning/test_mistral_reasoning_parser.py",
+          "first_character_index": 9433,
+          "last_character_index": 10569
+        }
+      ]
+    },
+    {
+      "question_id": "e3f2374c-9598-469e-bdae-a2f0962044e2",
+      "question": "What are the three key abstractions used for disaggregated prefilling in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/disagg_prefill.md",
+          "first_character_index": 2755,
+          "last_character_index": 4664
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/distributed/kv_transfer/README.md",
+          "first_character_index": 0,
+          "last_character_index": 1754
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/disagg_prefill.md",
+          "first_character_index": 4986,
+          "last_character_index": 5893
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/disagg_prefill.md",
+          "first_character_index": 0,
+          "last_character_index": 1116
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/distributed/kv_transfer/README.md",
+          "first_character_index": 1754,
+          "last_character_index": 2006
+        }
+      ]
+    },
+    {
+      "question_id": "1b303f73-8827-4c31-9d6e-3b1324c7b6ce",
+      "question": "Which model architectures support tensor parallelism in vLLM for the Llama family of models?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/configuration/optimization.md",
+          "first_character_index": 4250,
+          "last_character_index": 5719
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/gguf.md",
+          "first_character_index": 0,
+          "last_character_index": 1833
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/spec_decode.md",
+          "first_character_index": 3949,
+          "last_character_index": 5425
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/bitblas.md",
+          "first_character_index": 0,
+          "last_character_index": 1671
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/supported_models.md",
+          "first_character_index": 31559,
+          "last_character_index": 33190
+        }
+      ]
+    },
+    {
+      "question_id": "860c7aac-6520-413c-ac98-19448b34472a",
+      "question": "What method needs to be overridden in BaseProcessingInfo to specify the maximum number of input items for each modality in vLLM multimodal models?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/model/multimodal.md",
+          "first_character_index": 5541,
+          "last_character_index": 6389
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/multimodal/processing.py",
+          "first_character_index": 26195,
+          "last_character_index": 27931
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/multimodal/processing.py",
+          "first_character_index": 27731,
+          "last_character_index": 29064
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/multimodal/registry.py",
+          "first_character_index": 4438,
+          "last_character_index": 6394
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/models/qwen2_5_omni_thinker.py",
+          "first_character_index": 1917,
+          "last_character_index": 3704
+        }
+      ]
+    },
+    {
+      "question_id": "2a297df9-dacc-442c-899b-6416078fb451",
+      "question": "What are the system requirements for running vLLM with Intel Gaudi devices?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/intel_gaudi.md",
+          "first_character_index": 0,
+          "last_character_index": 1492
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/intel_gaudi.md",
+          "first_character_index": 1492,
+          "last_character_index": 3057
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/README.md",
+          "first_character_index": 0,
+          "last_character_index": 1157
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/gpu.md",
+          "first_character_index": 0,
+          "last_character_index": 1828
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/inc.md",
+          "first_character_index": 0,
+          "last_character_index": 1315
+        }
+      ]
+    },
+    {
+      "question_id": "67d28a0f-661d-4707-8982-0fa4162b1081",
+      "question": "What backend allows many decoder language models to be automatically loaded in vLLM without manual implementation?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/model/README.md",
+          "first_character_index": 0,
+          "last_character_index": 1177
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/supported_models.md",
+          "first_character_index": 597,
+          "last_character_index": 2005
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/deployment/frameworks/bentoml.md",
+          "first_character_index": 0,
+          "last_character_index": 445
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/deployment/frameworks/haystack.md",
+          "first_character_index": 0,
+          "last_character_index": 692
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/supported_models.md",
+          "first_character_index": 3368,
+          "last_character_index": 5338
+        }
+      ]
+    },
+    {
+      "question_id": "43914555-ab14-430a-8092-544eba3a30fd",
+      "question": "What resources are available for vLLM contributors working on speculative decoding?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/spec_decode.md",
+          "first_character_index": 13289,
+          "last_character_index": 13766
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/aws_neuron.md",
+          "first_character_index": 6865,
+          "last_character_index": 7570
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/spec_decode.md",
+          "first_character_index": 0,
+          "last_character_index": 620
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/spec_decode.md",
+          "first_character_index": 3949,
+          "last_character_index": 5425
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/offline_inference/neuron_eagle.py",
+          "first_character_index": 0,
+          "last_character_index": 613
+        }
+      ]
+    },
+    {
+      "question_id": "a8e7dbd2-458e-428b-a969-cc5e22ce999b",
+      "question": "Which vLLM versions are affected by the zmq bug that can cause hanging?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/usage/troubleshooting.md",
+          "first_character_index": 15156,
+          "last_character_index": 16071
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/RELEASE.md",
+          "first_character_index": 0,
+          "last_character_index": 1789
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/gpu/cuda.inc.md",
+          "first_character_index": 0,
+          "last_character_index": 1025
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/gpu/cuda.inc.md",
+          "first_character_index": 2758,
+          "last_character_index": 3447
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/SECURITY.md",
+          "first_character_index": 0,
+          "last_character_index": 1973
+        }
+      ]
+    },
+    {
+      "question_id": "cd5e1f0b-1053-4bc0-b4d8-84e003834785",
+      "question": "How do you install vLLM with a specific CUDA version using pip?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/gpu/cuda.inc.md",
+          "first_character_index": 1025,
+          "last_character_index": 2758
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/quickstart.md",
+          "first_character_index": 0,
+          "last_character_index": 1991
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/transformers_utils/__init__.py",
+          "first_character_index": 0,
+          "last_character_index": 910
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/gpu/cuda.inc.md",
+          "first_character_index": 9569,
+          "last_character_index": 10869
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/gpu/cuda.inc.md",
+          "first_character_index": 7895,
+          "last_character_index": 9569
+        }
+      ]
+    },
+    {
+      "question_id": "8447d11b-fb89-4c9c-a8d9-6251ab28c7f6",
+      "question": "What quantization methods are supported and unsupported for vLLM on Intel Gaudi?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/inc.md",
+          "first_character_index": 0,
+          "last_character_index": 1315
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/intel_gaudi.md",
+          "first_character_index": 0,
+          "last_character_index": 1492
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/intel_gaudi.md",
+          "first_character_index": 3057,
+          "last_character_index": 4675
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/README.md",
+          "first_character_index": 0,
+          "last_character_index": 1157
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/intel_gaudi.md",
+          "first_character_index": 1492,
+          "last_character_index": 3057
+        }
+      ]
+    },
+    {
+      "question_id": "7f0cb10b-945c-482b-9ba7-100c39d9c64b",
+      "question": "How do you uninstall a vLLM deployment using Helm?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/deployment/frameworks/helm.md",
+          "first_character_index": 0,
+          "last_character_index": 1591
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/deployment/integrations/production-stack.md",
+          "first_character_index": 1624,
+          "last_character_index": 2815
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/deployment/k8s.md",
+          "first_character_index": 0,
+          "last_character_index": 1047
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/deployment/integrations/production-stack.md",
+          "first_character_index": 2815,
+          "last_character_index": 4144
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/google_tpu.md",
+          "first_character_index": 6286,
+          "last_character_index": 7684
+        }
+      ]
+    },
+    {
+      "question_id": "5e2555d2-a1a6-4402-ac72-4e7f46378439",
+      "question": "What are the three main usage patterns supported by vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/configuration/README.md",
+          "first_character_index": 0,
+          "last_character_index": 335
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/usage/README.md",
+          "first_character_index": 0,
+          "last_character_index": 435
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/usage/usage_lib.py",
+          "first_character_index": 1457,
+          "last_character_index": 2399
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/entrypoints/openai/run_batch.py",
+          "first_character_index": 17700,
+          "last_character_index": 18694
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/fp8.md",
+          "first_character_index": 0,
+          "last_character_index": 1725
+        }
+      ]
+    },
+    {
+      "question_id": "f91d4c7f-8bda-4cdf-8613-fc746027dadd",
+      "question": "How do you serve a model with audio input support in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/online_serving/openai_transcription_client.py",
+          "first_character_index": 0,
+          "last_character_index": 1349
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/online_serving/ray_serve_deepseek.py",
+          "first_character_index": 0,
+          "last_character_index": 1869
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/layers/rotary_embedding/mrope.py",
+          "first_character_index": 23963,
+          "last_character_index": 25443
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/models/granite_speech.py",
+          "first_character_index": 28224,
+          "last_character_index": 29835
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/lora.md",
+          "first_character_index": 12946,
+          "last_character_index": 14472
+        }
+      ]
+    },
+    {
+      "question_id": "070dd694-1d93-473d-8d04-3ac50689b023",
+      "question": "How do you add support for a new reasoning model in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/reasoning_outputs.md",
+          "first_character_index": 8174,
+          "last_character_index": 10069
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/reasoning/test_deepseekr1_reasoning_parser.py",
+          "first_character_index": 3440,
+          "last_character_index": 3876
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/reasoning/test_mistral_reasoning_parser.py",
+          "first_character_index": 3786,
+          "last_character_index": 5212
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/online_serving/streamlit_openai_chatbot_webserver.py",
+          "first_character_index": 7817,
+          "last_character_index": 9399
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/reasoning/granite_reasoning_parser.py",
+          "first_character_index": 10459,
+          "last_character_index": 12107
+        }
+      ]
+    },
+    {
+      "question_id": "85e0249b-06ff-4e2a-a0fc-336dc1cbe5f8",
+      "question": "What shape must multimodal embeddings have when returned from get_multimodal_embeddings in vLLM multimodal models?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/model/multimodal.md",
+          "first_character_index": 1848,
+          "last_character_index": 3656
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/models/interfaces.py",
+          "first_character_index": 1395,
+          "last_character_index": 3203
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/v1/worker/utils.py",
+          "first_character_index": 4415,
+          "last_character_index": 5843
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/model/multimodal.md",
+          "first_character_index": 3456,
+          "last_character_index": 5323
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/models/hyperclovax_vision.py",
+          "first_character_index": 25029,
+          "last_character_index": 26345
+        }
+      ]
+    },
+    {
+      "question_id": "bfd2db0e-020b-4efc-994a-8692df116cd7",
+      "question": "What vLLM server endpoints correspond to the offline LLM.generate and LLM.chat APIs?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/generative_models.md",
+          "first_character_index": 5192,
+          "last_character_index": 5590
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/pooling_models.md",
+          "first_character_index": 5741,
+          "last_character_index": 7570
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/deployment/frameworks/litellm.md",
+          "first_character_index": 0,
+          "last_character_index": 1858
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/offline_inference.md",
+          "first_character_index": 0,
+          "last_character_index": 799
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/offline_inference/basic/README.md",
+          "first_character_index": 0,
+          "last_character_index": 1947
+        }
+      ]
+    },
+    {
+      "question_id": "0593b68b-2f74-440e-9d31-f09f06f09bb1",
+      "question": "What are the three recommended ways to implement third-party connectors for vLLM disaggregated prefilling?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/disagg_prefill.md",
+          "first_character_index": 4986,
+          "last_character_index": 5893
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/disagg_prefill.md",
+          "first_character_index": 2755,
+          "last_character_index": 4664
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/disagg_prefill.md",
+          "first_character_index": 4464,
+          "last_character_index": 4986
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/disagg_prefill.md",
+          "first_character_index": 1116,
+          "last_character_index": 2755
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/disagg_prefill.md",
+          "first_character_index": 0,
+          "last_character_index": 1116
+        }
+      ]
+    },
+    {
+      "question_id": "5521313f-eae6-431d-9ff4-f3cc31698bfa",
+      "question": "What should you do if you encounter persistent or strange build errors in vLLM after significant changes or switching branches?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/incremental_build.md",
+          "first_character_index": 7404,
+          "last_character_index": 8352
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/supported_models.md",
+          "first_character_index": 51921,
+          "last_character_index": 53619
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/third_party/pynvml.py",
+          "first_character_index": 17784,
+          "last_character_index": 19723
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/incremental_build.md",
+          "first_character_index": 5469,
+          "last_character_index": 7404
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/v1/sample/logits_processor/state.py",
+          "first_character_index": 585,
+          "last_character_index": 2450
+        }
+      ]
+    },
+    {
+      "question_id": "66bcc3cc-043c-4705-9f54-0bd98185e403",
+      "question": "How do you evaluate accuracy of a quantized model using lm_eval in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/int4.md",
+          "first_character_index": 3387,
+          "last_character_index": 3974
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/tpu/test_quantization_accuracy.py",
+          "first_character_index": 0,
+          "last_character_index": 1603
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/fp8.md",
+          "first_character_index": 3163,
+          "last_character_index": 4565
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/int8.md",
+          "first_character_index": 2439,
+          "last_character_index": 4410
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/quark.md",
+          "first_character_index": 6638,
+          "last_character_index": 8033
+        }
+      ]
+    },
+    {
+      "question_id": "359b6c20-fa53-4cc3-871d-2d42e9001c3f",
+      "question": "How do you report security vulnerabilities in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/vulnerability_management.md",
+          "first_character_index": 0,
+          "last_character_index": 1823
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/usage/security.md",
+          "first_character_index": 3354,
+          "last_character_index": 4367
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/SECURITY.md",
+          "first_character_index": 0,
+          "last_character_index": 1973
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/vulnerability_management.md",
+          "first_character_index": 1823,
+          "last_character_index": 2611
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/usage/security.md",
+          "first_character_index": 0,
+          "last_character_index": 1863
+        }
+      ]
+    },
+    {
+      "question_id": "bfdddb92-dfbf-4ef6-9867-2f0919e75505",
+      "question": "What requirements must a model meet to be compatible with vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/model/basic.md",
+          "first_character_index": 0,
+          "last_character_index": 642
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tools/generate_nightly_torch_test.py",
+          "first_character_index": 0,
+          "last_character_index": 1133
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/online_serving/openai_transcription_client.py",
+          "first_character_index": 0,
+          "last_character_index": 1349
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/supported_models.md",
+          "first_character_index": 2005,
+          "last_character_index": 3368
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/cpu/s390x.inc.md",
+          "first_character_index": 0,
+          "last_character_index": 834
+        }
+      ]
+    },
+    {
+      "question_id": "b4fb8f6b-b613-46fa-a0aa-aebcf9ed2b14",
+      "question": "What is the recommended starting number of samples for calibration data in INT4 quantization?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/int4.md",
+          "first_character_index": 3974,
+          "last_character_index": 5809
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/int4.md",
+          "first_character_index": 1468,
+          "last_character_index": 3387
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/quantized_kvcache.md",
+          "first_character_index": 2957,
+          "last_character_index": 4857
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/int8.md",
+          "first_character_index": 2439,
+          "last_character_index": 4410
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/int8.md",
+          "first_character_index": 1451,
+          "last_character_index": 2439
+        }
+      ]
+    },
+    {
+      "question_id": "9423895e-b4b2-4844-ba61-c818f2c48f27",
+      "question": "What tool calling format does vLLM support for Llama 3.1 and 3.2 models?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/tool_calling.md",
+          "first_character_index": 8624,
+          "last_character_index": 10535
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/tool_calling.md",
+          "first_character_index": 3183,
+          "last_character_index": 4941
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/tool_calling.md",
+          "first_character_index": 14898,
+          "last_character_index": 16719
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/tool_calling.md",
+          "first_character_index": 5465,
+          "last_character_index": 7112
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/tool_calling.md",
+          "first_character_index": 197,
+          "last_character_index": 2061
+        }
+      ]
+    },
+    {
+      "question_id": "2cfb7657-3bdf-4e81-bfe4-f0dfb8f557f6",
+      "question": "How many calibration samples are recommended when preparing calibration data for INT4 quantization in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/int4.md",
+          "first_character_index": 1468,
+          "last_character_index": 3387
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/int8.md",
+          "first_character_index": 1451,
+          "last_character_index": 2439
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/int4.md",
+          "first_character_index": 3974,
+          "last_character_index": 5809
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/quantized_kvcache.md",
+          "first_character_index": 2957,
+          "last_character_index": 4857
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/int8.md",
+          "first_character_index": 2439,
+          "last_character_index": 4410
+        }
+      ]
+    },
+    {
+      "question_id": "7ddc938a-4b0c-4e26-86e9-666e0ab68c28",
+      "question": "What CUDA compiler version is required to build Machete kernels in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/CMakeLists.txt",
+          "first_character_index": 27316,
+          "last_character_index": 29263
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/CMakeLists.txt",
+          "first_character_index": 30828,
+          "last_character_index": 32779
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/incremental_build.md",
+          "first_character_index": 3030,
+          "last_character_index": 4325
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/CMakeLists.txt",
+          "first_character_index": 14721,
+          "last_character_index": 16500
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/incremental_build.md",
+          "first_character_index": 4125,
+          "last_character_index": 5469
+        }
+      ]
+    },
+    {
+      "question_id": "efa50722-19a6-44a2-ab89-e554eb436899",
+      "question": "What model architectures does vLLM support for GPT-2 models?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/configuration/model_resolution.md",
+          "first_character_index": 0,
+          "last_character_index": 988
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/config/__init__.py",
+          "first_character_index": 31067,
+          "last_character_index": 33041
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/models/registry.py",
+          "first_character_index": 23118,
+          "last_character_index": 25036
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/transformers_utils/configs/eagle.py",
+          "first_character_index": 282,
+          "last_character_index": 1596
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/supported_models.md",
+          "first_character_index": 24435,
+          "last_character_index": 24767
+        }
+      ]
+    },
+    {
+      "question_id": "16cc036e-cfe4-46c7-8f1b-58402f6e4fdb",
+      "question": "How can you disable unused modalities completely in vLLM multimodal models?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/configuration/conserving_memory.md",
+          "first_character_index": 3571,
+          "last_character_index": 4960
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/supported_models.md",
+          "first_character_index": 33190,
+          "last_character_index": 34913
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/config/__init__.py",
+          "first_character_index": 108419,
+          "last_character_index": 110333
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/models/minicpmv.py",
+          "first_character_index": 32602,
+          "last_character_index": 34274
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/models/nemotron_vl.py",
+          "first_character_index": 19866,
+          "last_character_index": 21642
+        }
+      ]
+    },
+    {
+      "question_id": "0f5d97bf-9666-4550-ac80-1e88084214dc",
+      "question": "What argument should be included when evaluating FP8 quantized models with lm_eval to ensure proper accuracy assessment?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/int4.md",
+          "first_character_index": 3387,
+          "last_character_index": 3974
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/fp8.md",
+          "first_character_index": 3163,
+          "last_character_index": 4565
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/int8.md",
+          "first_character_index": 2439,
+          "last_character_index": 4410
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/tpu/test_quantization_accuracy.py",
+          "first_character_index": 0,
+          "last_character_index": 1603
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/fp8.md",
+          "first_character_index": 0,
+          "last_character_index": 1725
+        }
+      ]
+    },
+    {
+      "question_id": "3620bb65-9be5-4959-88b6-74552f6e3be2",
+      "question": "What three requirements must a custom model meet to be compatible with vLLM's Transformers backend?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/supported_models.md",
+          "first_character_index": 2005,
+          "last_character_index": 3368
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/model/basic.md",
+          "first_character_index": 0,
+          "last_character_index": 642
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/supported_models.md",
+          "first_character_index": 3368,
+          "last_character_index": 5338
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/models/registry.py",
+          "first_character_index": 26355,
+          "last_character_index": 28236
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/supported_models.md",
+          "first_character_index": 597,
+          "last_character_index": 2005
+        }
+      ]
+    },
+    {
+      "question_id": "54e177d5-9249-4653-b6ea-175de7f7411f",
+      "question": "How does vLLM handle sharding and quantization of model weights during initialization?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/arch_overview.md",
+          "first_character_index": 8486,
+          "last_character_index": 10194
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/v1/worker/tpu_model_runner.py",
+          "first_character_index": 57071,
+          "last_character_index": 58115
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/model_loader/bitsandbytes_loader.py",
+          "first_character_index": 22716,
+          "last_character_index": 24488
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/model_loader/bitsandbytes_loader.py",
+          "first_character_index": 19291,
+          "last_character_index": 21275
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/layers/mamba/mamba_mixer2.py",
+          "first_character_index": 10003,
+          "last_character_index": 11878
+        }
+      ]
+    },
+    {
+      "question_id": "cc3dcf4f-5155-4592-91eb-76ddb4e738b1",
+      "question": "How do you build a vLLM wheel from source for CUDA GPU installations?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/gpu.md",
+          "first_character_index": 1828,
+          "last_character_index": 3178
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/gpu/xpu.inc.md",
+          "first_character_index": 0,
+          "last_character_index": 1928
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/cpu/s390x.inc.md",
+          "first_character_index": 834,
+          "last_character_index": 2676
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/ci/update_pytorch_version.md",
+          "first_character_index": 5045,
+          "last_character_index": 6837
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/cpu.md",
+          "first_character_index": 0,
+          "last_character_index": 1761
+        }
+      ]
+    },
+    {
+      "question_id": "99f0b809-1905-4f24-82e6-fa7c7866418d",
+      "question": "What models are currently covered in vLLM's end-to-end performance validation before each release?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/RELEASE.md",
+          "first_character_index": 3440,
+          "last_character_index": 5005
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/gpu/rocm.inc.md",
+          "first_character_index": 5386,
+          "last_character_index": 7075
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/config/__init__.py",
+          "first_character_index": 12964,
+          "last_character_index": 14940
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/RELEASE.md",
+          "first_character_index": 1789,
+          "last_character_index": 3440
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/supported_models.md",
+          "first_character_index": 597,
+          "last_character_index": 2005
+        }
+      ]
+    },
+    {
+      "question_id": "30266ac7-6f42-4e3f-9bce-30219ee46f93",
+      "question": "What is the minimum NVIDIA GPU compute capability required for INT4 computation in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/int4.md",
+          "first_character_index": 0,
+          "last_character_index": 1468
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/benchmarks/kernels/benchmark_bitblas.py",
+          "first_character_index": 0,
+          "last_character_index": 1932
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/fp8.md",
+          "first_character_index": 0,
+          "last_character_index": 1725
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/v1/worker/gpu_worker.py",
+          "first_character_index": 25967,
+          "last_character_index": 27606
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/worker/worker.py",
+          "first_character_index": 23517,
+          "last_character_index": 25182
+        }
+      ]
+    },
+    {
+      "question_id": "d8a776b1-adb4-428b-8e81-306998a43554",
+      "question": "What is the minimum vLLM version required for P2P NCCL connector functionality?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/executor/ray_distributed_executor.py",
+          "first_character_index": 22053,
+          "last_character_index": 22963
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/models/registry.py",
+          "first_character_index": 384,
+          "last_character_index": 2230
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/offline_inference/disaggregated_prefill.py",
+          "first_character_index": 447,
+          "last_character_index": 2191
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/offline_inference/disaggregated_prefill.py",
+          "first_character_index": 2191,
+          "last_character_index": 4137
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/distributed/kv_transfer/kv_connector/v1/p2p/p2p_nccl_connector.py",
+          "first_character_index": 8989,
+          "last_character_index": 10918
+        }
+      ]
+    },
+    {
+      "question_id": "3f4ce35c-5c00-4b7f-8781-d292056ba4fb",
+      "question": "Can vLLM serve multiple models on a single port using the OpenAI API?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/usage/faq.md",
+          "first_character_index": 0,
+          "last_character_index": 1566
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/cli/README.md",
+          "first_character_index": 0,
+          "last_character_index": 1758
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/quickstart.md",
+          "first_character_index": 6294,
+          "last_character_index": 8079
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/utils.py",
+          "first_character_index": 2086,
+          "last_character_index": 3982
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/deployment/frameworks/litellm.md",
+          "first_character_index": 0,
+          "last_character_index": 1858
+        }
+      ]
+    },
+    {
+      "question_id": "5a5189ea-56a8-40ea-a338-94322a242135",
+      "question": "How do you configure data parallel deployment in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/expert_parallel_deployment.md",
+          "first_character_index": 1958,
+          "last_character_index": 3320
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/parallelism_scaling.md",
+          "first_character_index": 2554,
+          "last_character_index": 4287
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tools/ep_kernels/README.md",
+          "first_character_index": 0,
+          "last_character_index": 1370
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/expert_parallel_deployment.md",
+          "first_character_index": 0,
+          "last_character_index": 1958
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/data_parallel_deployment.md",
+          "first_character_index": 0,
+          "last_character_index": 1708
+        }
+      ]
+    },
+    {
+      "question_id": "d5df4835-9245-47ba-b9c5-28e690f70c85",
+      "question": "What CUDA architectures are supported for Marlin MOE kernels in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/CMakeLists.txt",
+          "first_character_index": 35613,
+          "last_character_index": 37125
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/CMakeLists.txt",
+          "first_character_index": 32579,
+          "last_character_index": 34118
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/CMakeLists.txt",
+          "first_character_index": 13018,
+          "last_character_index": 14921
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/layers/quantization/utils/nvfp4_moe_support.py",
+          "first_character_index": 0,
+          "last_character_index": 1990
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/layers/quantization/awq_marlin.py",
+          "first_character_index": 5214,
+          "last_character_index": 7057
+        }
+      ]
+    },
+    {
+      "question_id": "626fea67-be37-41c7-b801-ff643ca89b8c",
+      "question": "What FusedMoEPrepareAndFinalize implementation is used when there is no expert parallelism in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/fused_moe_modular_kernel.md",
+          "first_character_index": 15519,
+          "last_character_index": 16917
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/fused_moe_modular_kernel.md",
+          "first_character_index": 10666,
+          "last_character_index": 12514
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/fused_moe_modular_kernel.md",
+          "first_character_index": 4487,
+          "last_character_index": 6177
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/layers/fused_moe/layer.py",
+          "first_character_index": 7981,
+          "last_character_index": 9215
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/fused_moe_modular_kernel.md",
+          "first_character_index": 13819,
+          "last_character_index": 15519
+        }
+      ]
+    },
+    {
+      "question_id": "d0853e7c-86df-4b77-85d6-206d49f713a5",
+      "question": "How should security issues be reported in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/vulnerability_management.md",
+          "first_character_index": 0,
+          "last_character_index": 1823
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/SECURITY.md",
+          "first_character_index": 0,
+          "last_character_index": 1973
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/README.md",
+          "first_character_index": 3675,
+          "last_character_index": 5602
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/usage/security.md",
+          "first_character_index": 3354,
+          "last_character_index": 4367
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/SECURITY.md",
+          "first_character_index": 1973,
+          "last_character_index": 3257
+        }
+      ]
+    },
+    {
+      "question_id": "9f727ae2-eb97-4224-bc71-676e52769bb9",
+      "question": "What are the three communication backends available for Expert Parallelism in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/expert_parallel_deployment.md",
+          "first_character_index": 0,
+          "last_character_index": 1958
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/design/p2p_nccl_connector.md",
+          "first_character_index": 5447,
+          "last_character_index": 6704
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/config/parallel.py",
+          "first_character_index": 2848,
+          "last_character_index": 4436
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/distributed/device_communicators/ray_communicator.py",
+          "first_character_index": 665,
+          "last_character_index": 2638
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/expert_parallel_deployment.md",
+          "first_character_index": 1958,
+          "last_character_index": 3320
+        }
+      ]
+    },
+    {
+      "question_id": "de8f43f8-80fa-4a17-9fdf-b00040702df8",
+      "question": "What do the symbols ✅, 🚧, and ⚠️ mean in vLLM's feature status legend?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/supported_models.md",
+          "first_character_index": 10399,
+          "last_character_index": 12368
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/compatibility_matrix.md",
+          "first_character_index": 0,
+          "last_character_index": 364
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tools/profiler/visualize_layerwise_profile.py",
+          "first_character_index": 14704,
+          "last_character_index": 15396
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/benchmarks/disagg_benchmarks/visualize_benchmark_results.py",
+          "first_character_index": 0,
+          "last_character_index": 1311
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tools/profiler/visualize_layerwise_profile.py",
+          "first_character_index": 1802,
+          "last_character_index": 2699
+        }
+      ]
+    },
+    {
+      "question_id": "50a943ce-91e1-47d4-8d8d-ddb218f7d730",
+      "question": "What datatypes are supported by vLLM's ARM CPU backend?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/cpu/arm.inc.md",
+          "first_character_index": 0,
+          "last_character_index": 1637
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/engine/arg_utils.py",
+          "first_character_index": 49958,
+          "last_character_index": 51807
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/platforms/cpu.py",
+          "first_character_index": 1613,
+          "last_character_index": 3549
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/layers/quantization/kernels/mixed_precision/dynamic_4bit.py",
+          "first_character_index": 390,
+          "last_character_index": 2193
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/cpu.md",
+          "first_character_index": 0,
+          "last_character_index": 1761
+        }
+      ]
+    },
+    {
+      "question_id": "3ea21165-0dc8-460f-9353-35c42abc69f1",
+      "question": "What are the two ways to format input when making requests to vLLM's classify endpoint?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/entrypoints/openai/api_server.py",
+          "first_character_index": 42656,
+          "last_character_index": 43786
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/online_serving/openai_classification_client.py",
+          "first_character_index": 0,
+          "last_character_index": 1227
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/benchmarks/serve.py",
+          "first_character_index": 12654,
+          "last_character_index": 14463
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/openai_compatible_server.md",
+          "first_character_index": 3960,
+          "last_character_index": 5901
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/openai_compatible_server.md",
+          "first_character_index": 16632,
+          "last_character_index": 18631
+        }
+      ]
+    },
+    {
+      "question_id": "4f575a44-7098-49ff-81ee-f925c13f956e",
+      "question": "What is the current limitation when using MLP speculators for speculative decoding in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/spec_decode.md",
+          "first_character_index": 3949,
+          "last_character_index": 5425
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/config/__init__.py",
+          "first_character_index": 94000,
+          "last_character_index": 95573
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/spec_decode.md",
+          "first_character_index": 7966,
+          "last_character_index": 8887
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/transformers_utils/configs/speculators/base.py",
+          "first_character_index": 2005,
+          "last_character_index": 3712
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/config/__init__.py",
+          "first_character_index": 92478,
+          "last_character_index": 94200
+        }
+      ]
+    },
+    {
+      "question_id": "8ef264c6-cab8-4326-920b-262901ad76e8",
+      "question": "How do you forward the vllm-router-service port to access the vLLM deployment?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/deployment/integrations/production-stack.md",
+          "first_character_index": 2815,
+          "last_character_index": 4144
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/deployment/k8s.md",
+          "first_character_index": 8953,
+          "last_character_index": 10740
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/deployment/frameworks/lws.md",
+          "first_character_index": 4328,
+          "last_character_index": 5581
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/deployment/k8s.md",
+          "first_character_index": 1047,
+          "last_character_index": 1839
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/deployment/k8s.md",
+          "first_character_index": 1639,
+          "last_character_index": 3528
+        }
+      ]
+    },
+    {
+      "question_id": "1c8c4c31-340c-413e-a6eb-7010f2c10e8b",
+      "question": "Which vLLM model architectures support LoRA fine-tuning?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/models/chameleon.py",
+          "first_character_index": 42653,
+          "last_character_index": 42853
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/models/exaone.py",
+          "first_character_index": 20374,
+          "last_character_index": 21147
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/models/exaone4.py",
+          "first_character_index": 19887,
+          "last_character_index": 20660
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/models/granite.py",
+          "first_character_index": 19558,
+          "last_character_index": 20356
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/lora/test_minicpmv_tp.py",
+          "first_character_index": 0,
+          "last_character_index": 1678
+        }
+      ]
+    },
+    {
+      "question_id": "a8d3991a-90f0-4dfc-a227-b2ef35c1db41",
+      "question": "Where can I find the configurable parameters for the vLLM Helm chart?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/deployment/frameworks/helm.md",
+          "first_character_index": 0,
+          "last_character_index": 1591
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/deployment/frameworks/helm.md",
+          "first_character_index": 1591,
+          "last_character_index": 1688
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/online_serving/chart-helm/README.md",
+          "first_character_index": 0,
+          "last_character_index": 1123
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/deployment/integrations/production-stack.md",
+          "first_character_index": 1624,
+          "last_character_index": 2815
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/deployment/k8s.md",
+          "first_character_index": 0,
+          "last_character_index": 1047
+        }
+      ]
+    },
+    {
+      "question_id": "3e7873ce-9d83-4d41-876d-6bb8bde7cb34",
+      "question": "What quantization methods are supported by vLLM CPU?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/quantization/supported_hardware.md",
+          "first_character_index": 1859,
+          "last_character_index": 2698
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/config/__init__.py",
+          "first_character_index": 47824,
+          "last_character_index": 48968
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/layers/quantization/neuron_quant.py",
+          "first_character_index": 0,
+          "last_character_index": 520
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/quantization/test_cpu_offload.py",
+          "first_character_index": 0,
+          "last_character_index": 1767
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/layers/quantization/qqq.py",
+          "first_character_index": 0,
+          "last_character_index": 1029
+        }
+      ]
+    },
+    {
+      "question_id": "de2f7646-a182-4d9b-8fb0-b9edf7ce47e9",
+      "question": "What is Reinforcement Learning from Human Feedback (RLHF)?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/training/rlhf.md",
+          "first_character_index": 0,
+          "last_character_index": 1163
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/offline_inference/rlhf.py",
+          "first_character_index": 0,
+          "last_character_index": 1688
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/offline_inference/rlhf_colocate.py",
+          "first_character_index": 0,
+          "last_character_index": 1443
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/training/trl.md",
+          "first_character_index": 0,
+          "last_character_index": 1079
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/system_messages/sonnet3.5_nov2024.txt",
+          "first_character_index": 8050,
+          "last_character_index": 9895
+        }
+      ]
+    },
+    {
+      "question_id": "451afbac-b40a-474f-880e-2bb73bd4ce8c",
+      "question": "Which models support the process_vision_info function in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/multimodal_inputs.md",
+          "first_character_index": 8419,
+          "last_character_index": 8690
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/multimodal_inputs.md",
+          "first_character_index": 6672,
+          "last_character_index": 8619
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/model_executor/models/cohere2_vision.py",
+          "first_character_index": 13963,
+          "last_character_index": 15638
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/supported_models.md",
+          "first_character_index": 597,
+          "last_character_index": 2005
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/models/test_initialization.py",
+          "first_character_index": 677,
+          "last_character_index": 2355
+        }
+      ]
+    },
+    {
+      "question_id": "8e937b74-eb3a-4942-8e21-5a1159a1f175",
+      "question": "What OpenAI APIs are supported by vLLM's OpenAI-compatible server?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/generative_models.md",
+          "first_character_index": 5192,
+          "last_character_index": 5590
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/deployment/frameworks/open-webui.md",
+          "first_character_index": 0,
+          "last_character_index": 1381
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/deployment/frameworks/litellm.md",
+          "first_character_index": 0,
+          "last_character_index": 1858
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/online_serving/openai_transcription_client.py",
+          "first_character_index": 0,
+          "last_character_index": 1349
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/structured_outputs.md",
+          "first_character_index": 311,
+          "last_character_index": 2302
+        }
+      ]
+    },
+    {
+      "question_id": "9dc7f06a-bff9-403c-91d3-10c07b370096",
+      "question": "Where can I find a complete example of structured outputs in vLLM online serving?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/structured_outputs.md",
+          "first_character_index": 10855,
+          "last_character_index": 11964
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/structured_outputs.md",
+          "first_character_index": 4863,
+          "last_character_index": 5537
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/online_serving/structured_outputs/README.md",
+          "first_character_index": 0,
+          "last_character_index": 1462
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/structured_outputs.md",
+          "first_character_index": 5537,
+          "last_character_index": 6681
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/structured_outputs.md",
+          "first_character_index": 311,
+          "last_character_index": 2302
+        }
+      ]
+    },
+    {
+      "question_id": "d30ed96e-b7a7-4700-8bf5-d1f162ff3f5c",
+      "question": "How do you serve the JinaVL-Reranker model using vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/openai_compatible_server.md",
+          "first_character_index": 22494,
+          "last_character_index": 24290
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/supported_models.md",
+          "first_character_index": 49446,
+          "last_character_index": 50369
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/online_serving/jinaai_rerank_client.py",
+          "first_character_index": 0,
+          "last_character_index": 1057
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/online_serving/openai_cross_encoder_score_for_multimodal.py",
+          "first_character_index": 0,
+          "last_character_index": 1805
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/supported_models.md",
+          "first_character_index": 30763,
+          "last_character_index": 31559
+        }
+      ]
+    },
+    {
+      "question_id": "26a726a8-e47e-4933-9563-8b888a485464",
+      "question": "Which TPU versions are supported by vLLM for Google Cloud TPU?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/google_tpu.md",
+          "first_character_index": 0,
+          "last_character_index": 1909
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/google_tpu.md",
+          "first_character_index": 5509,
+          "last_character_index": 6286
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/google_tpu.md",
+          "first_character_index": 1909,
+          "last_character_index": 3361
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/google_tpu.md",
+          "first_character_index": 3715,
+          "last_character_index": 5709
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/offline_inference/profiling_tpu/README.md",
+          "first_character_index": 1883,
+          "last_character_index": 2454
+        }
+      ]
+    },
+    {
+      "question_id": "becefabd-1c2a-4257-b14c-78733bb1407f",
+      "question": "What is the recommended tensor parallel size and pipeline parallel size configuration when running vLLM on a Ray cluster with 16 GPUs across 2 nodes?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/parallelism_scaling.md",
+          "first_character_index": 7232,
+          "last_character_index": 8767
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/distributed_troubleshooting.md",
+          "first_character_index": 0,
+          "last_character_index": 1377
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/parallelism_scaling.md",
+          "first_character_index": 1824,
+          "last_character_index": 2554
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/parallelism_scaling.md",
+          "first_character_index": 27,
+          "last_character_index": 2024
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/executor/ray_utils.py",
+          "first_character_index": 8162,
+          "last_character_index": 9120
+        }
+      ]
+    },
+    {
+      "question_id": "32302028-1ea8-40ae-87d6-db98e83f7e49",
+      "question": "How can you limit the number of compilation jobs when building vLLM to avoid system overload?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/installation/gpu/cuda.inc.md",
+          "first_character_index": 10869,
+          "last_character_index": 12451
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/setup.py",
+          "first_character_index": 2675,
+          "last_character_index": 4615
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/deployment/docker.md",
+          "first_character_index": 3235,
+          "last_character_index": 4938
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/deployment/docker.md",
+          "first_character_index": 2328,
+          "last_character_index": 3235
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/incremental_build.md",
+          "first_character_index": 4125,
+          "last_character_index": 5469
+        }
+      ]
+    },
+    {
+      "question_id": "dab5d35d-02a9-4ef3-a604-2ef45c2327c2",
+      "question": "How do you access the parsed response from OpenAI's structured output completion in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/structured_outputs.md",
+          "first_character_index": 6681,
+          "last_character_index": 8638
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/structured_outputs.md",
+          "first_character_index": 8438,
+          "last_character_index": 9265
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/v1/entrypoints/openai/responses/test_structured_output.py",
+          "first_character_index": 2000,
+          "last_character_index": 2830
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/deployment/frameworks/autogen.md",
+          "first_character_index": 486,
+          "last_character_index": 2423
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/entrypoints/openai/api_server.py",
+          "first_character_index": 1930,
+          "last_character_index": 3890
+        }
+      ]
+    },
+    {
+      "question_id": "0489281a-086d-4851-92ba-c593525fbe36",
+      "question": "What flag is mandatory to enable automatic function calling in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/tool_calling.md",
+          "first_character_index": 5465,
+          "last_character_index": 7112
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/online_serving/openai_chat_completion_tool_calls_with_reasoning.py",
+          "first_character_index": 3173,
+          "last_character_index": 4951
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/offline_inference/automatic_prefix_caching.py",
+          "first_character_index": 0,
+          "last_character_index": 773
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/tool_calling.md",
+          "first_character_index": 0,
+          "last_character_index": 197
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/benchmarks/overheads/benchmark_hashing.py",
+          "first_character_index": 1511,
+          "last_character_index": 2071
+        }
+      ]
+    },
+    {
+      "question_id": "b5191cd4-9b74-4211-9e60-6272498deae3",
+      "question": "How do you apply chat templates to prompts in vLLM?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/entrypoints/llm.py",
+          "first_character_index": 40438,
+          "last_character_index": 42377
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/vllm/transformers_utils/chat_templates/registry.py",
+          "first_character_index": 0,
+          "last_character_index": 1945
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/multimodal_inputs.md",
+          "first_character_index": 11042,
+          "last_character_index": 11913
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/openai_compatible_server.md",
+          "first_character_index": 3960,
+          "last_character_index": 5901
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/getting_started/quickstart.md",
+          "first_character_index": 4941,
+          "last_character_index": 6294
+        }
+      ]
+    },
+    {
+      "question_id": "db4f05fe-78bf-402f-b02f-630d0a3959c3",
+      "question": "What is the first step to implement a basic vLLM model?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/model/README.md",
+          "first_character_index": 0,
+          "last_character_index": 1177
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/model/basic.md",
+          "first_character_index": 0,
+          "last_character_index": 642
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/offline_inference/basic/README.md",
+          "first_character_index": 0,
+          "last_character_index": 1947
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/contributing/model/multimodal.md",
+          "first_character_index": 168,
+          "last_character_index": 2048
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/features/lora.md",
+          "first_character_index": 6100,
+          "last_character_index": 8082
+        }
+      ]
+    },
+    {
+      "question_id": "4e658668-9e1d-4068-ae99-1f77bab83523",
+      "question": "What flag must be explicitly passed when serving VLM2Vec-Full model in vLLM to run it in embedding mode?",
+      "retrieved_sources": [
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/openai_compatible_server.md",
+          "first_character_index": 9910,
+          "last_character_index": 11858
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/serving/openai_compatible_server.md",
+          "first_character_index": 11658,
+          "last_character_index": 12628
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/docs/models/supported_models.md",
+          "first_character_index": 47632,
+          "last_character_index": 49446
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/examples/online_serving/openai_chat_embedding_client_for_multimodal.py",
+          "first_character_index": 0,
+          "last_character_index": 1041
+        },
+        {
+          "file_path": "data/raw/vllm-0.10.1/tests/models/multimodal/pooling/test_phi3v.py",
+          "first_character_index": 1032,
+          "last_character_index": 2810
+        }
+      ]
+    }
+  ],
+  "k": 5
+}
