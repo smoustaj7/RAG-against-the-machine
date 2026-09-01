@@ -1,8 +1,6 @@
 import json
 import sys
 from pathlib import Path
-from typing import Optional
-
 import fire
 from tqdm import tqdm
 
@@ -201,15 +199,13 @@ class CLI:
         self,
         dataset_path: str,
         k: int = 5,
-        save_directory: Optional[str] = None,
+        save_directory: str = "data/output/search_results",
         chunks_path: str = DEFAULT_CHUNKS_PATH,
         bm25_index_path: str = DEFAULT_BM25_INDEX_PATH,
     ) -> None:
         """Batch-search over a dataset of questions.
-
         Loads an UnansweredQuestions dataset, retrieves sources for
         each question, and writes StudentSearchResults JSON.
-
         Args:
             dataset_path: path to the dataset JSON file.
             k: number of results per question.
@@ -219,9 +215,6 @@ class CLI:
             bm25_index_path: path to the fitted BM25 pickle.
         """
         try:
-            if save_directory is None:
-                save_directory = "data/output/search_results"
-
             dataset = _load_dataset(dataset_path)
             retriever, store = _load_retriever_and_store(
                 chunks_path, bm25_index_path
@@ -275,10 +268,8 @@ class CLI:
         dataset_path: str,
     ) -> None:
         """Evaluate retrieval quality against ground truth.
-
         Computes recall@1, recall@3, recall@5, recall@10 using
         IoU >= 0.05 overlap (same file_path required).
-
         Args:
             student_search_results_path: path to the
                 StudentSearchResults JSON.
