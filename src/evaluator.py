@@ -1,9 +1,3 @@
-"""Evaluation module for RAG retrieval quality.
-
-Computes recall@k metrics by comparing retrieved sources against
-ground-truth sources using IoU-based character-range overlap.
-"""
-
 from typing import Dict, List
 from uuid import UUID
 
@@ -21,16 +15,13 @@ def source_overlaps(
     iou_threshold: float = 0.05,
 ) -> bool:
     """Check whether a retrieved source overlaps a ground-truth source.
-
     Two sources overlap if they share the same file_path AND the
     Intersection-over-Union (IoU) of their character ranges is at
     least ``iou_threshold``.
-
     Args:
         retrieved: the student-retrieved source.
         ground_truth: the ground-truth source from the dataset.
         iou_threshold: minimum IoU for a match (default 0.05).
-
     Returns:
         True if the sources overlap sufficiently.
     """
@@ -60,15 +51,12 @@ def question_hit_at_k(
     k: int,
 ) -> bool:
     """Determine if a question is a hit at rank k.
-
     A question is a hit if *any* of the top-k retrieved sources
     overlaps with *any* of the ground-truth sources.
-
     Args:
         retrieved_sources: ranked list of retrieved sources.
         gt_sources: ground-truth sources for this question.
         k: cutoff rank.
-
     Returns:
         True if at least one retrieved source (within top-k)
         overlaps with at least one ground-truth source.
@@ -86,14 +74,11 @@ def evaluate_search_results(
     dataset: RagDataset,
 ) -> Dict[str, float]:
     """Evaluate student search results against a ground-truth dataset.
-
     Computes recall@1, recall@3, recall@5, and recall@10.
-
     Args:
         student_results: the student's ``StudentSearchResults``.
         dataset: the ground-truth ``RagDataset`` of
             ``AnsweredQuestion`` items.
-
     Returns:
         Dictionary with keys ``recall@1``, ``recall@3``,
         ``recall@5``, ``recall@10`` and their float values.
