@@ -84,11 +84,11 @@ Design rule behind every phase: **separate chunk storage from index structure, a
 ## Phase 4 — Retrieval CLI + Self-Evaluation Loop
 **Satisfies:** VI.2 Retrieval, VI.6 CLI (`search`, `search_dataset`, `evaluate`), VII.1 Evaluation, Performances (throughput)
 
-- [ ] `src/cli.py` command `search(query, k)` → loads index, calls `Retriever.search`, maps `chunk_id`s back to `MinimalSource`, prints/returns
-- [ ] `search_dataset(dataset_path, k, save_directory)` → batch over `UnansweredQuestion`s, writes `StudentSearchResults` JSON, `tqdm` over questions
-- [ ] `evaluate(student_search_results_path, dataset_path)` → your own recall@k against `AnsweredQuestion` ground truth (IoU ≥ 0.05 overlap rule, same file_path required) — **this is your tuning feedback loop, build it before polishing chunking**
-- [ ] Degenerate input handling: empty query, k=0, missing dataset file, malformed JSON — no unhandled tracebacks anywhere in this chain
-- [ ] Iterate here: tune chunk size, tokenizer, chunking boundaries against `evaluate` until you're clearing 80%/50% recall@5 targets — **this is the phase you'll revisit most**
+- [x] `src/cli.py` command `search(query, k)` → loads index, calls `Retriever.search`, maps `chunk_id`s back to `MinimalSource`, prints/returns
+- [x] `search_dataset(dataset_path, k, save_directory)` → batch over `UnansweredQuestion`s, writes `StudentSearchResults` JSON, `tqdm` over questions
+- [x] `evaluate(student_search_results_path, dataset_path)` → your own recall@k against `AnsweredQuestion` ground truth (IoU ≥ 0.05 overlap rule, same file_path required) — **this is your tuning feedback loop, build it before polishing chunking**
+- [x] Degenerate input handling: empty query, k=0, missing dataset file, malformed JSON — no unhandled tracebacks anywhere in this chain
+- [x] Iterate here: tune chunk size, tokenizer, chunking boundaries against `evaluate` until you're clearing 80%/50% recall@5 targets — **this is the phase you'll revisit most**
 
 **Definition of done:** self-measured recall@5 ≥ 80% docs / ≥ 50% code on public datasets; 200 questions retrieved in <90s.
 

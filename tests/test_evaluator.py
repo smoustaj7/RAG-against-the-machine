@@ -1,7 +1,5 @@
 """Tests for the evaluation module."""
 
-import pytest
-
 from src.evaluator import (
     evaluate_search_results,
     question_hit_at_k,
