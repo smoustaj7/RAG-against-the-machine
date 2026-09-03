@@ -1,23 +1,22 @@
-# Python
+# Python & byte-compiled files
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-.pyre/
 
-# Virtual environments
+# Environments & tool caches
 .venv/
 venv/
 env/
 ENV/
+.uv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.cache/
 
-# Jupyter / notebooks
-.ipynb_checkpoints/
-
-# Build / distribution
+# Build & distribution
 build/
 dist/
 *.egg-info/
@@ -25,29 +24,35 @@ dist/
 *.egg
 pip-wheel-metadata/
 
-# IDE / editor files
+# IDEs & OS files
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
-
-# OS files
 .DS_Store
 Thumbs.db
 
-# Logs and temp files
+# Environment variables & secrets
+.env
+.env.*
+!.env.example
+.envrc
+
+# Logs & temp files
 *.log
 *.tmp
 tmp/
 temp/
 
-# Local environment/config secrets
-.env
-.env.*
-!.env.example
+# Test coverage
+.coverage
+.coverage.*
+coverage/
+htmlcov/
+site/
 
-# Model / data artifacts
+# ML models, weights & pickles
 *.bin
 *.ckpt
 *.safetensors
@@ -55,19 +60,14 @@ temp/
 *.pth
 *.onnx
 *.h5
+*.pkl
 checkpoints/
 models/
 artifacts/
 
-# Generated docs / caches
-site/
-.cache/
-
-# Local test outputs
-coverage/
-htmlcov/
-
-# Data
-vllm-0.10.1/
-data/processed/
-
+# Project data & index artifacts
+vllm-*/
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
