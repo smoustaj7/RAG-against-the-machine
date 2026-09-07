@@ -1,21 +1,25 @@
 import json
-import sys
 from pathlib import Path
+import sys
+
 import fire
 from tqdm import tqdm
 
 from src.chunk_store import ChunkStore
 from src.evaluator import evaluate_search_results
+from src.generation import AnswerGenerator
 from src.indexer import (
     DEFAULT_BM25_INDEX_PATH,
     DEFAULT_CHUNKS_PATH,
     build_index,
 )
 from src.models import (
+    MinimalAnswer,
     MinimalSearchResults,
     MinimalSource,
     RagDataset,
     StudentSearchResults,
+    StudentSearchResultsAndAnswer,
 )
 from src.retrieval.lexical import BM25Retriever
 
@@ -304,6 +308,169 @@ class CLI:
 
         except (FileNotFoundError, ValueError) as exc:
             print(f"Error: {exc}", file=sys.stderr)
+
+    def answer(
+        self,
+        query: str,
+        k: int = 5,
+        chunks_path: str = DEFAULT_CHUNKS_PATH,
+        bm25_index_path: str = DEFAULT_BM25_INDEX_PATH,
+    ) -> None:
+        """Search then generate an answer for a single query.
+
+        Args:
+            query: the natural-language question.
+            k: number of retrieval results to use as context.
+            chunks_path: path to the chunk registry JSONL.
+            bm25_index_path: path to the fitted BM25 pickle.
+        """
+        try:
+            if k <= 0:
+                print("Warning: k <= 0, no results.", file=sys.stderr)
+                return
+            if not query or not query.strip():
+                print(
+                    "Warning: empty query, no results.",
+                    file=sys.stderr,
+                )
+                return
+
+            retriever, store = _load_retriever_and_store(
+                chunks_path, bm25_index_path
+            )
+            sources = _search_single(query, k, retriever, store)
+
+            # Collect the actual chunk texts for the generator
+            source_texts = _collect_source_texts(sources, store)
+
+            generator = AnswerGenerator()
+            answer_text = generator.generate(
+                question=query,
+                source_texts=source_texts,
+            )
+
+            result = MinimalAnswer(
+                question=query,
+                retrieved_sources=sources,
+                answer=answer_text,
+            )
+            print(result.model_dump_json(indent=2))
+
+        except (FileNotFoundError, ValueError, OSError) as exc:
+            print(f"Error: {exc}", file=sys.stderr)
+
+    def answer_dataset(
+        self,
+        student_search_results_path: str,
+        save_directory: str = "data/output/search_results_and_answer",
+        chunks_path: str = DEFAULT_CHUNKS_PATH,
+    ) -> None:
+        """Generate answers for every question in a search-results file.
+
+        Loads a previously saved ``StudentSearchResults`` JSON
+        (produced by ``search_dataset``), generates an answer for
+        each question using the retrieved sources, and writes a
+        ``StudentSearchResultsAndAnswer`` JSON.
+
+        Args:
+            student_search_results_path: path to the
+                StudentSearchResults JSON.
+            save_directory: directory to write the output file.
+            chunks_path: path to the chunk registry JSONL.
+        """
+        try:
+            student_results = _load_student_results(
+                student_search_results_path
+            )
+            store = ChunkStore.load_jsonl(chunks_path)
+
+            generator = AnswerGenerator()
+
+            answers: list[MinimalAnswer] = []
+
+            for sr in tqdm(
+                student_results.search_results,
+                desc="Generating answers",
+                unit="question",
+            ):
+                source_texts = _collect_source_texts(
+                    sr.retrieved_sources, store
+                )
+                answer_text = generator.generate(
+                    question=sr.question,
+                    source_texts=source_texts,
+                )
+                answers.append(
+                    MinimalAnswer(
+                        question_id=sr.question_id,
+                        question=sr.question,
+                        retrieved_sources=sr.retrieved_sources,
+                        answer=answer_text,
+                    )
+                )
+
+            output = StudentSearchResultsAndAnswer(
+                search_results=answers,
+            )
+
+            save_dir = Path(save_directory)
+            save_dir.mkdir(parents=True, exist_ok=True)
+
+            dataset_name = Path(
+                student_search_results_path
+            ).stem
+            output_path = save_dir / f"{dataset_name}.json"
+            output_path.write_text(
+                output.model_dump_json(indent=2),
+                encoding="utf-8",
+            )
+
+            print(
+                f"Answers saved to: {output_path}\n"
+                f"  Questions answered: {len(answers)}"
+            )
+
+        except (FileNotFoundError, ValueError, OSError) as exc:
+            print(f"Error: {exc}", file=sys.stderr)
+
+
+def _collect_source_texts(
+    sources: list[MinimalSource],
+    store: ChunkStore,
+) -> list[str]:
+    """Look up chunk texts for a list of MinimalSource objects.
+
+    For each source, we scan the chunk store for a chunk whose
+    file_path and character offsets match.  If found, we return
+    its text; otherwise it is silently skipped.
+
+    Args:
+        sources: the retrieved sources (file_path + offsets).
+        store: the chunk store containing full texts.
+
+    Returns:
+        List of chunk text strings, in the same order as sources.
+    """
+    texts: list[str] = []
+    for src in sources:
+        matched = False
+        for chunk in store.get_chunks_by_file(src.file_path):
+            match_first = (
+                chunk.first_character_index == src.first_character_index
+            )
+            match_last = (
+                chunk.last_character_index == src.last_character_index
+            )
+            if match_first and match_last:
+                texts.append(chunk.text)
+                matched = True
+                break
+        if not matched:
+            # Source was in the results but not in the chunk store —
+            # could happen if the index was rebuilt with different
+            # settings.  We skip silently.
+            pass
+    return texts
 
 
 def main() -> None:
