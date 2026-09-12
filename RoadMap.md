@@ -97,11 +97,11 @@ Design rule behind every phase: **separate chunk storage from index structure, a
 ## Phase 5 — Answer Generation
 **Satisfies:** VI.3 Answer Generation, VI.6 CLI (`answer`, `answer_dataset`)
 
-- [ ] `src/generation.py`: load `Qwen/Qwen3-0.6B` via `transformers`, build prompt template that stuffs retrieved chunk text into context within token budget (truncate/select if over budget — decide a clear rule, document it)
-- [ ] Prompt should explicitly instruct grounding in provided sources and instruct against fabricating file/line references
-- [ ] `answer(query, k)` CLI command → search → generate → print
-- [ ] `answer_dataset(student_search_results_path, save_directory)` → loads prior search results, generates answers, writes `StudentSearchResultsAndAnswer` JSON, `tqdm` over questions
-- [ ] Handle: model failing to produce parseable output, empty context (no sources retrieved), very long context needing truncation
+- [x] `src/generation.py`: load `Qwen/Qwen3-0.6B` via `transformers`, build prompt template that stuffs retrieved chunk text into context within token budget (truncate/select if over budget — decide a clear rule, document it)
+- [x] Prompt should explicitly instruct grounding in provided sources and instruct against fabricating file/line references
+- [x] `answer(query, k)` CLI command → search → generate → print
+- [x] `answer_dataset(student_search_results_path, save_directory)` → loads prior search results, generates answers, writes `StudentSearchResultsAndAnswer` JSON, `tqdm` over questions
+- [x] Handle: model failing to produce parseable output, empty context (no sources retrieved), very long context needing truncation
 
 **Definition of done:** answers are coherent, cite/reflect retrieved content, and the pipeline never crashes even on adversarial queries.
 
