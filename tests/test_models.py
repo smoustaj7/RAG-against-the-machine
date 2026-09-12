@@ -46,7 +46,10 @@ def test_answered_question() -> None:
 
 
 def test_rag_dataset_load_answered() -> None:
-    path = Path("datasets_public/public/AnsweredQuestions/dataset_code_public.json")
+    path = Path(
+        "datasets_public/public/"
+        "AnsweredQuestions/dataset_code_public.json"
+    )
     if path.exists():
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
@@ -56,7 +59,10 @@ def test_rag_dataset_load_answered() -> None:
 
 
 def test_rag_dataset_load_unanswered() -> None:
-    path = Path("datasets_public/public/UnansweredQuestions/dataset_code_public.json")
+    path = Path(
+        "datasets_public/public/"
+        "UnansweredQuestions/dataset_code_public.json"
+    )
     if path.exists():
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
