@@ -1,10 +1,8 @@
 """Unit tests for Phase 2 chunk registry and chunking strategies."""
 
-import json
 from pathlib import Path
 from src.chunk_store import Chunk, ChunkStore
 from src.chunking import (
-    MarkdownChunker,
     PythonChunker,
     TextChunker,
     chunk_file,
@@ -140,7 +138,6 @@ def test_python_chunker_ast() -> None:
         "def top_level_func():\n"
         '    return "hello"\n'
     )
-    file_hash = compute_file_hash(code)
     max_chunk_size = 200
 
     chunks = chunk_file(
@@ -281,7 +278,10 @@ def test_full_coverage_invariant() -> None:
     # Collect all covered character positions.
     covered = set()
     for chunk in chunks:
-        for i in range(chunk.first_character_index, chunk.last_character_index):
+        for i in range(
+            chunk.first_character_index,
+            chunk.last_character_index,
+        ):
             covered.add(i)
 
     # Every position in the content must be covered.

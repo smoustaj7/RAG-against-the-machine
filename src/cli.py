@@ -150,18 +150,29 @@ class CLI:
             bm25_index_path: output path for the fitted BM25 pickle.
         """
         try:
+            if not isinstance(max_chunk_size, int) or max_chunk_size <= 0:
+                print(
+                    "Error: max_chunk_size must be a positive integer.",
+                    file=sys.stderr,
+                )
+                return
             build_index(
-                corpus_dir=corpus_dir,
+                corpus_dir=str(corpus_dir),
                 max_chunk_size=max_chunk_size,
-                chunks_path=chunks_path,
-                bm25_index_path=bm25_index_path,
+                chunks_path=str(chunks_path),
+                bm25_index_path=str(bm25_index_path),
             )
-        except (FileNotFoundError, ValueError) as exc:
+        except (FileNotFoundError, ValueError, OSError) as exc:
             print(f"Error: {exc}", file=sys.stderr)
+        except Exception as exc:
+            print(
+                f"Unexpected error during indexing: {exc}",
+                file=sys.stderr,
+            )
 
     def search(
         self,
-        query: str,
+        query: str = "",
         k: int = 5,
         chunks_path: str = DEFAULT_CHUNKS_PATH,
         bm25_index_path: str = DEFAULT_BM25_INDEX_PATH,
@@ -175,6 +186,16 @@ class CLI:
             bm25_index_path: path to the fitted BM25 pickle.
         """
         try:
+            query = str(query)
+            if not isinstance(k, int):
+                try:
+                    k = int(k)
+                except (ValueError, TypeError):
+                    print(
+                        "Error: k must be an integer.",
+                        file=sys.stderr,
+                    )
+                    return
             if k <= 0:
                 print("Warning: k <= 0, no results.", file=sys.stderr)
                 return
@@ -196,12 +217,17 @@ class CLI:
             )
             print(result.model_dump_json(indent=2))
 
-        except (FileNotFoundError, ValueError) as exc:
+        except (FileNotFoundError, ValueError, OSError) as exc:
             print(f"Error: {exc}", file=sys.stderr)
+        except Exception as exc:
+            print(
+                f"Unexpected error during search: {exc}",
+                file=sys.stderr,
+            )
 
     def search_dataset(
         self,
-        dataset_path: str,
+        dataset_path: str = "",
         k: int = 5,
         save_directory: str = "data/output/search_results",
         chunks_path: str = DEFAULT_CHUNKS_PATH,
@@ -219,6 +245,29 @@ class CLI:
             bm25_index_path: path to the fitted BM25 pickle.
         """
         try:
+            dataset_path = str(dataset_path)
+            if not dataset_path or not dataset_path.strip():
+                print(
+                    "Error: dataset_path is required.",
+                    file=sys.stderr,
+                )
+                return
+            if not isinstance(k, int):
+                try:
+                    k = int(k)
+                except (ValueError, TypeError):
+                    print(
+                        "Error: k must be an integer.",
+                        file=sys.stderr,
+                    )
+                    return
+            if k <= 0:
+                print(
+                    "Warning: k <= 0, no results to retrieve.",
+                    file=sys.stderr,
+                )
+                return
+
             dataset = _load_dataset(dataset_path)
             retriever, store = _load_retriever_and_store(
                 chunks_path, bm25_index_path
@@ -263,13 +312,18 @@ class CLI:
                 f"  k: {k}"
             )
 
-        except (FileNotFoundError, ValueError) as exc:
+        except (FileNotFoundError, ValueError, OSError) as exc:
             print(f"Error: {exc}", file=sys.stderr)
+        except Exception as exc:
+            print(
+                f"Unexpected error during search_dataset: {exc}",
+                file=sys.stderr,
+            )
 
     def evaluate(
         self,
-        student_search_results_path: str,
-        dataset_path: str,
+        student_search_results_path: str = "",
+        dataset_path: str = "",
     ) -> None:
         """Evaluate retrieval quality against ground truth.
         Computes recall@1, recall@3, recall@5, recall@10 using
@@ -280,6 +334,26 @@ class CLI:
             dataset_path: path to the AnsweredQuestions dataset JSON.
         """
         try:
+            student_search_results_path = str(
+                student_search_results_path
+            )
+            dataset_path = str(dataset_path)
+            if (
+                not student_search_results_path
+                or not student_search_results_path.strip()
+            ):
+                print(
+                    "Error: student_search_results_path is required.",
+                    file=sys.stderr,
+                )
+                return
+            if not dataset_path or not dataset_path.strip():
+                print(
+                    "Error: dataset_path is required.",
+                    file=sys.stderr,
+                )
+                return
+
             student_results = _load_student_results(
                 student_search_results_path
             )
@@ -306,12 +380,17 @@ class CLI:
             else:
                 print("  ❌ Both targets: FAIL (< 50%)")
 
-        except (FileNotFoundError, ValueError) as exc:
+        except (FileNotFoundError, ValueError, OSError) as exc:
             print(f"Error: {exc}", file=sys.stderr)
+        except Exception as exc:
+            print(
+                f"Unexpected error during evaluation: {exc}",
+                file=sys.stderr,
+            )
 
     def answer(
         self,
-        query: str,
+        query: str = "",
         k: int = 5,
         chunks_path: str = DEFAULT_CHUNKS_PATH,
         bm25_index_path: str = DEFAULT_BM25_INDEX_PATH,
@@ -325,6 +404,16 @@ class CLI:
             bm25_index_path: path to the fitted BM25 pickle.
         """
         try:
+            query = str(query)
+            if not isinstance(k, int):
+                try:
+                    k = int(k)
+                except (ValueError, TypeError):
+                    print(
+                        "Error: k must be an integer.",
+                        file=sys.stderr,
+                    )
+                    return
             if k <= 0:
                 print("Warning: k <= 0, no results.", file=sys.stderr)
                 return
@@ -358,10 +447,15 @@ class CLI:
 
         except (FileNotFoundError, ValueError, OSError) as exc:
             print(f"Error: {exc}", file=sys.stderr)
+        except Exception as exc:
+            print(
+                f"Unexpected error during answer: {exc}",
+                file=sys.stderr,
+            )
 
     def answer_dataset(
         self,
-        student_search_results_path: str,
+        student_search_results_path: str = "",
         save_directory: str = "data/output/search_results_and_answer",
         chunks_path: str = DEFAULT_CHUNKS_PATH,
     ) -> None:
@@ -379,6 +473,20 @@ class CLI:
             chunks_path: path to the chunk registry JSONL.
         """
         try:
+            student_search_results_path = str(
+                student_search_results_path
+            )
+            if (
+                not student_search_results_path
+                or not student_search_results_path.strip()
+            ):
+                print(
+                    "Error: student_search_results_path is "
+                    "required.",
+                    file=sys.stderr,
+                )
+                return
+
             student_results = _load_student_results(
                 student_search_results_path
             )
@@ -432,6 +540,11 @@ class CLI:
 
         except (FileNotFoundError, ValueError, OSError) as exc:
             print(f"Error: {exc}", file=sys.stderr)
+        except Exception as exc:
+            print(
+                f"Unexpected error during answer_dataset: {exc}",
+                file=sys.stderr,
+            )
 
 
 def _collect_source_texts(
@@ -474,8 +587,21 @@ def _collect_source_texts(
 
 
 def main() -> None:
-    """Main CLI entrypoint."""
-    fire.Fire(CLI)
+    """Main CLI entrypoint.
+
+    Wraps fire.Fire in a top-level exception handler so the CLI
+    never shows a raw Python traceback to the user.
+    """
+    try:
+        fire.Fire(CLI)
+    except SystemExit:
+        raise
+    except KeyboardInterrupt:
+        print("\nInterrupted.", file=sys.stderr)
+        sys.exit(130)
+    except Exception as exc:
+        print(f"Fatal error: {exc}", file=sys.stderr)
+        sys.exit(1)
 
 
 if __name__ == "__main__":

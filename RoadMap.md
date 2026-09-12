@@ -110,10 +110,10 @@ Design rule behind every phase: **separate chunk storage from index structure, a
 ## Phase 6 — Robustness Pass
 **Satisfies:** V.1 (exception handling), VI.6 (CLI must never crash)
 
-- [ ] Sweep all 6 commands with: empty string query, k=0, k negative, nonexistent dataset path, malformed JSON dataset, missing index (search before index built), non-UTF8 file in corpus
-- [ ] Confirm every failure path prints a clean message and exits gracefully — no raw tracebacks
-- [ ] Run full `make lint` / `make lint-strict` and fix everything
-- [ ] Run `pytest` suite one more time
+- [x] Sweep all 6 commands with: empty string query, k=0, k negative, nonexistent dataset path, malformed JSON dataset, missing index (search before index built), non-UTF8 file in corpus
+- [x] Confirm every failure path prints a clean message and exits gracefully — no raw tracebacks
+- [x] Run full `make lint` / `make lint-strict` and fix everything
+- [x] Run `pytest` suite one more time
 
 **Definition of done:** you (or a peer) genuinely cannot crash the CLI by feeding it garbage.
 
