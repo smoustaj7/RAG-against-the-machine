@@ -122,9 +122,9 @@ Design rule behind every phase: **separate chunk storage from index structure, a
 ## Phase 7 — End-to-End Dry Run
 **Satisfies:** VI.7.2 full pipeline walkthrough
 
-- [ ] Run the exact 4-step sequence from the spec: `index` → `search_dataset` → moulinette `evaluate_student_search_results` → `answer_dataset`
-- [ ] Confirm output paths match `data/output/search_results/<DatasetScope>/...` and `data/output/search_results_and_answer/<DatasetScope>/...` exactly, scoped by dataset folder (don't overwrite between `UnansweredQuestions`/`AnsweredQuestions` runs)
-- [ ] Confirm nothing is hardcoded — every path is a CLI arg
+- [x] Run the exact 4-step sequence from the spec: `index` → `search_dataset` → moulinette `evaluate_student_search_results` → `answer_dataset`
+- [x] Confirm output paths match `data/output/search_results/<DatasetScope>/...` and `data/output/search_results_and_answer/<DatasetScope>/...` exactly, scoped by dataset folder (don't overwrite between `UnansweredQuestions`/`AnsweredQuestions` runs)
+- [x] Confirm nothing is hardcoded — every path is a CLI arg
 
 **Definition of done:** the moulinette runs against your output without structural complaints, independent of any manual fixups.
 
