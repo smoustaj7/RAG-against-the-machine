@@ -133,10 +133,10 @@ Design rule behind every phase: **separate chunk storage from index structure, a
 ## Phase 8 — README
 **Satisfies:** Chapter VIII Readme Requirements (write this last, once real decisions/numbers exist)
 
-- [ ] First line, italicized: `*This project has been created as part of the 42 curriculum by <login(s)>.*`
-- [ ] Description, Instructions, Resources (incl. AI usage disclosure: what tasks, what parts)
-- [ ] System architecture, Chunking strategy, Retrieval method, Performance analysis (your real recall@k numbers), Design decisions, Challenges faced, Example usage
-- [ ] Written in English
+- [x] First line, italicized: `*This project has been created as part of the 42 curriculum by <login(s)>.*`
+- [x] Description, Instructions, Resources (incl. AI usage disclosure: what tasks, what parts)
+- [x] System architecture, Chunking strategy, Retrieval method, Performance analysis (your real recall@k numbers), Design decisions, Challenges faced, Example usage
+- [x] Written in English
 
 **Definition of done:** a stranger could clone, run, and understand the project from this file alone.
 
