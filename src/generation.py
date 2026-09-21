@@ -106,13 +106,17 @@ class AnswerGenerator:
         self.max_new_tokens = max_new_tokens
 
         if device is None:
-
             device = "cuda" if torch.cuda.is_available() else "cpu"
         self._device = device
 
+        if self._device == "cpu":
+            torch.set_num_threads(8)
+
         self._tokenizer: Any = AutoTokenizer.from_pretrained(model_name)
+
+        dtype = torch.float32 if self._device == "cpu" else "auto"
         model = AutoModelForCausalLM.from_pretrained(
-            model_name, torch_dtype="auto"
+            model_name, torch_dtype=dtype
         )
         self._model: Any = cast(Any, model)
         self._model.to(self._device)
@@ -137,7 +141,7 @@ class AnswerGenerator:
                 messages,
                 tokenize=False,
                 add_generation_prompt=True,
-                enable_thinking=False,
+                enable_thinking=False
             ),
         )
 

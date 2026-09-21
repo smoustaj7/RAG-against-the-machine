@@ -455,7 +455,8 @@ class CLI:
 
     def answer_dataset(
         self,
-        student_search_results_path: str = "",
+        student_search_results_path:
+            str = "data/output/search_results/dataset_code_public.json",
         save_directory: str = "data/output/search_results_and_answer",
         chunks_path: str = DEFAULT_CHUNKS_PATH,
     ) -> None:
