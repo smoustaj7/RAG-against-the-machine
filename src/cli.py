@@ -12,6 +12,9 @@ from src.indexer import (
     DEFAULT_BM25_INDEX_PATH,
     DEFAULT_CHUNKS_PATH,
     build_index,
+    load_retriever,
+    normalize_retriever_name,
+    resolve_index_path,
 )
 from src.models import (
     MinimalAnswer,
@@ -21,38 +24,48 @@ from src.models import (
     StudentSearchResults,
     StudentSearchResultsAndAnswer,
 )
-from src.retrieval.lexical import BM25Retriever
+from src.retrieval.base import Retriever
+from src.retrieval.embedding import DEFAULT_EMBEDDING_MODEL
 
 
 def _load_retriever_and_store(
     chunks_path: str,
-    bm25_index_path: str,
-) -> tuple[BM25Retriever, ChunkStore]:
-    """Load the persisted BM25 retriever and chunk store.
+    index_path: str,
+    retriever: str = "bm25",
+) -> tuple[Retriever, ChunkStore]:
+    """Load the persisted retriever and chunk store.
+
+    Args:
+        chunks_path: path to the chunk registry JSONL.
+        index_path: path to the fitted retriever artifact.
+        retriever: one of ``bm25``, ``embedding``, ``hybrid``.
 
     Raises:
+        ValueError: if ``retriever`` is not a known retriever.
         FileNotFoundError: if the index or chunk files are missing.
     """
+    name = normalize_retriever_name(retriever)
+
     if not Path(chunks_path).exists():
         raise FileNotFoundError(
             f"Chunk registry not found at: {chunks_path}\n"
             "Run 'index' first to build the index."
         )
-    if not Path(bm25_index_path).exists():
+    if not Path(index_path).exists():
         raise FileNotFoundError(
-            f"BM25 index not found at: {bm25_index_path}\n"
-            "Run 'index' first to build the index."
+            f"'{name}' index not found at: {index_path}\n"
+            f"Run 'index --retriever {name}' first to build it."
         )
 
     store = ChunkStore.load_jsonl(chunks_path)
-    retriever = BM25Retriever.load(bm25_index_path)
-    return retriever, store
+    retriever_impl = load_retriever(name, index_path)
+    return retriever_impl, store
 
 
 def _search_single(
     query: str,
     k: int,
-    retriever: BM25Retriever,
+    retriever: Retriever,
     store: ChunkStore,
 ) -> list[MinimalSource]:
     """Run a single search and return MinimalSource results."""
@@ -140,6 +153,9 @@ class CLI:
         max_chunk_size: int = 2000,
         chunks_path: str = DEFAULT_CHUNKS_PATH,
         bm25_index_path: str = DEFAULT_BM25_INDEX_PATH,
+        retriever: str = "bm25",
+        index_path: str = "",
+        embedding_model: str = DEFAULT_EMBEDDING_MODEL,
     ) -> None:
         """Index a corpus directory for retrieval.
 
@@ -148,6 +164,11 @@ class CLI:
             max_chunk_size: maximum character length for any chunk.
             chunks_path: output path for the chunk registry JSONL.
             bm25_index_path: output path for the fitted BM25 pickle.
+            retriever: one of ``bm25``, ``embedding``, ``hybrid``.
+            index_path: output path for the fitted retriever,
+                overriding the per-retriever default.
+            embedding_model: encoder used by ``embedding``
+                and ``hybrid``.
         """
         try:
             if not isinstance(max_chunk_size, int) or max_chunk_size <= 0:
@@ -161,6 +182,9 @@ class CLI:
                 max_chunk_size=max_chunk_size,
                 chunks_path=str(chunks_path),
                 bm25_index_path=str(bm25_index_path),
+                retriever=str(retriever),
+                index_path=str(index_path) or None,
+                embedding_model=str(embedding_model),
             )
         except (FileNotFoundError, ValueError, OSError) as exc:
             print(f"Error: {exc}", file=sys.stderr)
@@ -176,6 +200,8 @@ class CLI:
         k: int = 5,
         chunks_path: str = DEFAULT_CHUNKS_PATH,
         bm25_index_path: str = DEFAULT_BM25_INDEX_PATH,
+        retriever: str = "bm25",
+        index_path: str = "",
     ) -> None:
         """Search the index for a single query.
 
@@ -184,6 +210,9 @@ class CLI:
             k: number of results to return.
             chunks_path: path to the chunk registry JSONL.
             bm25_index_path: path to the fitted BM25 pickle.
+            retriever: one of ``bm25``, ``embedding``, ``hybrid``.
+            index_path: path to the fitted retriever artifact,
+                overriding the per-retriever default.
         """
         try:
             query = str(query)
@@ -206,10 +235,15 @@ class CLI:
                 )
                 return
 
-            retriever, store = _load_retriever_and_store(
-                chunks_path, bm25_index_path
+            resolved_index_path = str(
+                resolve_index_path(
+                    retriever, index_path, bm25_index_path
+                )
             )
-            sources = _search_single(query, k, retriever, store)
+            retriever_impl, store = _load_retriever_and_store(
+                chunks_path, resolved_index_path, retriever
+            )
+            sources = _search_single(query, k, retriever_impl, store)
 
             result = MinimalSearchResults(
                 question=query,
@@ -232,6 +266,8 @@ class CLI:
         save_directory: str = "data/output/search_results",
         chunks_path: str = DEFAULT_CHUNKS_PATH,
         bm25_index_path: str = DEFAULT_BM25_INDEX_PATH,
+        retriever: str = "bm25",
+        index_path: str = "",
     ) -> None:
         """Batch-search over a dataset of questions.
         Loads an UnansweredQuestions dataset, retrieves sources for
@@ -243,6 +279,9 @@ class CLI:
                 Defaults to ``data/output/search_results/``.
             chunks_path: path to the chunk registry JSONL.
             bm25_index_path: path to the fitted BM25 pickle.
+            retriever: one of ``bm25``, ``embedding``, ``hybrid``.
+            index_path: path to the fitted retriever artifact,
+                overriding the per-retriever default.
         """
         try:
             dataset_path = str(dataset_path)
@@ -269,8 +308,13 @@ class CLI:
                 return
 
             dataset = _load_dataset(dataset_path)
-            retriever, store = _load_retriever_and_store(
-                chunks_path, bm25_index_path
+            resolved_index_path = str(
+                resolve_index_path(
+                    retriever, index_path, bm25_index_path
+                )
+            )
+            retriever_impl, store = _load_retriever_and_store(
+                chunks_path, resolved_index_path, retriever
             )
 
             search_results: list[MinimalSearchResults] = []
@@ -281,7 +325,7 @@ class CLI:
                 unit="question",
             ):
                 sources = _search_single(
-                    q.question, k, retriever, store
+                    q.question, k, retriever_impl, store
                 )
                 search_results.append(
                     MinimalSearchResults(
@@ -309,7 +353,8 @@ class CLI:
             print(
                 f"Search results saved to: {output_path}\n"
                 f"  Questions: {len(search_results)}\n"
-                f"  k: {k}"
+                f"  k: {k}\n"
+                f"  Retriever: {normalize_retriever_name(retriever)}"
             )
 
         except (FileNotFoundError, ValueError, OSError) as exc:
@@ -394,6 +439,8 @@ class CLI:
         k: int = 5,
         chunks_path: str = DEFAULT_CHUNKS_PATH,
         bm25_index_path: str = DEFAULT_BM25_INDEX_PATH,
+        retriever: str = "bm25",
+        index_path: str = "",
     ) -> None:
         """Search then generate an answer for a single query.
 
@@ -402,6 +449,9 @@ class CLI:
             k: number of retrieval results to use as context.
             chunks_path: path to the chunk registry JSONL.
             bm25_index_path: path to the fitted BM25 pickle.
+            retriever: one of ``bm25``, ``embedding``, ``hybrid``.
+            index_path: path to the fitted retriever artifact,
+                overriding the per-retriever default.
         """
         try:
             query = str(query)
@@ -424,10 +474,15 @@ class CLI:
                 )
                 return
 
-            retriever, store = _load_retriever_and_store(
-                chunks_path, bm25_index_path
+            resolved_index_path = str(
+                resolve_index_path(
+                    retriever, index_path, bm25_index_path
+                )
             )
-            sources = _search_single(query, k, retriever, store)
+            retriever_impl, store = _load_retriever_and_store(
+                chunks_path, resolved_index_path, retriever
+            )
+            sources = _search_single(query, k, retriever_impl, store)
 
             # Collect the actual chunk texts for the generator
             source_texts = _collect_source_texts(sources, store)

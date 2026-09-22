@@ -56,12 +56,16 @@ uv run python -m src answer --query "How does vLLM schedule requests?" --k 5
 
 | Command | Description |
 |---------|-------------|
-| `index` | Walk corpus, chunk files, fit BM25, persist artifacts |
+| `index` | Walk corpus, chunk files, fit the retriever, persist artifacts |
 | `search` | Single-query search, prints `MinimalSearchResults` JSON |
 | `search_dataset` | Batch search over a dataset JSON, writes `StudentSearchResults` |
 | `evaluate` | Self-evaluation: recall@k against an `AnsweredQuestions` dataset |
 | `answer` | Single-query search + answer generation |
 | `answer_dataset` | Batch answer generation from saved search results |
+
+`index`, `search`, `search_dataset` and `answer` all accept
+`--retriever {bm25,embedding,hybrid}` (default `bm25`). See
+[Bonuses](#bonuses).
 
 ### Makefile Targets
 
@@ -110,9 +114,16 @@ src/chunking.py                  ← PythonChunker / MarkdownChunker / TextChunk
         ▼
 src/chunk_store.py               ← ChunkStore — in-memory dict, serialised to chunks.jsonl
         │
+        ├─ src/retrieval/lexical.py    ← BM25Retriever (rank_bm25.BM25Okapi)
+        │        fitted on tokenised chunk texts → bm25_index.pkl
+        ├─ src/retrieval/embedding.py  ← EmbeddingRetriever (all-MiniLM-L6-v2)
+        │        mean-pooled chunk vectors → embedding_index.npz
+        └─ src/retrieval/hybrid.py     ← HybridRetriever (RRF over both)
+                 → hybrid_index/{lexical.pkl,embedding.npz}
+        │
         ▼
-src/retrieval/lexical.py         ← BM25Retriever (rank_bm25.BM25Okapi)
-        │  fitted on tokenised chunk texts, serialised to bm25_index.pkl
+src/indexer.py                   ← make_retriever / load_retriever by name
+        │
         ▼
 src/cli.py                       ← fire.Fire(CLI) — six commands
         │
@@ -169,6 +180,91 @@ The fitted index and chunk registry are persisted as separate artifacts under `d
 
 ---
 
+## Bonuses
+
+Every retriever implements the same `Retriever` interface
+(`index` / `search` / `save` / `load`) and consumes the same chunk
+registry, so switching between them re-fits an index but never
+re-chunks the corpus — and no call site in `cli.py` changes.
+
+| `--retriever` | Class | Artifact |
+|---------------|-------|----------|
+| `bm25` (default) | `BM25Retriever` | `data/processed/bm25_index.pkl` |
+| `embedding` | `EmbeddingRetriever` | `data/processed/embedding_index.npz` |
+| `hybrid` | `HybridRetriever` | `data/processed/hybrid_index/` (directory) |
+
+### Bonus 1 — Semantic embeddings (`src/retrieval/embedding.py`)
+
+`EmbeddingRetriever` encodes every chunk with
+`sentence-transformers/all-MiniLM-L6-v2`, loaded through plain
+`transformers.AutoModel` — mean pooling over the last hidden state
+masked by `attention_mask`, then L2 normalisation. That is exactly
+what the `sentence-transformers` wrapper does for this model, so
+using `transformers` directly adds **zero new dependencies**.
+
+Because every vector is L2-normalised, cosine similarity is a plain
+dot product and a search is one matrix-vector multiply over the
+whole corpus. Vectors are persisted as a pickle-free `.npz`
+(`embeddings`, `chunk_ids`, `meta`), loadable with
+`allow_pickle=False`.
+
+The encoder is loaded **lazily**, on the first call that actually
+needs to embed something. Constructing or `load()`-ing a retriever
+costs nothing, so the BM25-only path never pays for torch.
+
+Chunks are truncated to 256 tokens when encoded (MiniLM's own
+`max_seq_length`), so a 2000-character chunk contributes its first
+~256 tokens to its vector. BM25 still sees the chunk in full, which
+is one reason the two retrievers fail differently — and therefore
+why fusing them helps.
+
+```bash
+uv run python -m src index --corpus_dir data/raw --retriever embedding
+uv run python -m src search --query "How is the KV cache paged?" \
+  --k 5 --retriever embedding
+```
+
+### Bonus 2 — Hybrid retrieval (`src/retrieval/hybrid.py`)
+
+`HybridRetriever` wraps a lexical and a semantic retriever and
+merges their rankings with **Reciprocal Rank Fusion**: each list
+contributes `weight / (rrf_k + rank)` to every chunk it ranks, and
+the sums are re-sorted. RRF deliberately ignores the raw scores —
+BM25 scores and cosine similarities live on incomparable scales,
+and rank position is the only signal the two share. A chunk ranked
+respectably by both retrievers therefore beats a chunk ranked first
+by only one.
+
+Each component is queried for a pool of `max(k, candidate_pool)`
+(default 50) candidates before fusion, so the fused top-`k` can
+promote a chunk that neither retriever had in its own top-`k`.
+
+One refinement on textbook RRF: results scoring `<= 0` are dropped
+before fusing. A BM25 score of 0 means the chunk shares no query
+term at all, so its position in that ranking is arbitrary; feeding
+those arbitrary positions into RRF would let noise tie with genuine
+hits from the other retriever. Disable with `drop_non_positive=False`.
+
+Tunable via constructor: `rrf_k` (default 60), `candidate_pool`
+(50), `lexical_weight` / `embedding_weight` (1.0 each). The values
+are persisted in `hybrid_meta.json` and restored on load.
+
+```bash
+uv run python -m src index --corpus_dir data/raw --retriever hybrid
+uv run python -m src search_dataset \
+  --dataset_path data/datasets/UnansweredQuestions/dataset_code_public.json \
+  --k 10 --retriever hybrid \
+  --save_directory data/output/search_results/hybrid
+```
+
+### Not yet implemented
+
+Bonus 3 (incremental indexing), 4 (caching) and 5 (local HTTP API)
+are still stubs — `file_hash` is already captured on every chunk so
+bonus 3 remains a comparison, not a refactor.
+
+---
+
 ## Performance Analysis
 
 Measured with the moulinette `evaluate_student_search_results` binary against the **public datasets** (`data/datasets/AnsweredQuestions/`), `k=10`, `max_context_length=2000`:
@@ -180,6 +276,26 @@ Measured with the moulinette `evaluate_student_search_results` binary against th
 
 Indexing throughput: **14,992 chunks** from **1,830 files** (vLLM 0.10.1) in ~3 seconds on CPU.
 Search throughput: ~60 questions/second (BM25 is purely in-memory, no GPU required).
+
+The numbers above are for the default `--retriever bm25`. The
+`embedding` and `hybrid` retrievers are measured with the same loop,
+pointing `search_dataset` at a per-retriever output directory so the
+runs don't overwrite each other:
+
+```bash
+uv run python -m src index --corpus_dir data/raw --retriever hybrid
+uv run python -m src search_dataset \
+  --dataset_path data/datasets/AnsweredQuestions/dataset_code_public.json \
+  --k 10 --retriever hybrid \
+  --save_directory data/output/search_results/hybrid
+uv run python -m src evaluate \
+  --student_search_results_path data/output/search_results/hybrid/dataset_code_public.json \
+  --dataset_path data/datasets/AnsweredQuestions/dataset_code_public.json
+```
+
+Note that embedding indexing is far slower than BM25: ~15k chunks
+through MiniLM on CPU is minutes, not seconds, versus milliseconds
+per query at search time once the vectors are on disk.
 
 ---
 

@@ -147,8 +147,13 @@ Design rule behind every phase: **separate chunk storage from index structure, a
 
 Because of the Phase 2–3 design choices, each bonus is additive:
 
-1. **Semantic embeddings** — new `src/retrieval/embedding.py`, `EmbeddingRetriever(Retriever)` using `sentence-transformers/all-MiniLM-L6-v2` over the *same* chunk registry. No re-chunking.
-2. **Hybrid retrieval** — `src/retrieval/hybrid.py`, `HybridRetriever(Retriever)` wraps lexical + embedding retrievers, merges `(chunk_id, score)` lists (e.g. reciprocal rank fusion). No changes to `search`/`search_dataset` call sites.
+1. [x] **Semantic embeddings** — new `src/retrieval/embedding.py`, `EmbeddingRetriever(Retriever)` using `sentence-transformers/all-MiniLM-L6-v2` over the *same* chunk registry. No re-chunking.
+   - Loaded via plain `transformers.AutoModel` + mean pooling + L2 norm, so no new dependency. Model loads lazily; vectors persist to a pickle-free `.npz`.
+   - Reachable as `--retriever embedding` on `index` / `search` / `search_dataset` / `answer`.
+2. [x] **Hybrid retrieval** — `src/retrieval/hybrid.py`, `HybridRetriever(Retriever)` wraps lexical + embedding retrievers, merges `(chunk_id, score)` lists (e.g. reciprocal rank fusion). No changes to `search`/`search_dataset` call sites.
+   - RRF (`rrf_k=60`) over a 50-candidate pool per component; component results scoring <= 0 are dropped before fusion. Tuning persisted in `hybrid_meta.json`.
+   - Reachable as `--retriever hybrid`. Saves to a *directory* holding both component artifacts.
+   - ⚠️ Still to do: run `evaluate` for `embedding` and `hybrid` on the public datasets and record the recall@k numbers in the README.
 3. **Incremental indexing** — in `indexer.py`, compare each file's current hash to the stored `file_hash` in the chunk registry; only re-chunk + re-index changed files; drop stale chunk_ids for removed/changed files.
 4. **Caching** — wrap `load_index()` / `run_search()` with `diskcache` or `joblib.Memory`; no logic changes needed if Phase 3–4 kept those as clean single-entry-point functions.
 5. **Local HTTP API** — `src/api.py`, thin FastAPI app that imports and calls the exact same functions `cli.py` calls (search, answer). No duplicated logic.
