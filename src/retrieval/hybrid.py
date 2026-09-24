@@ -119,7 +119,6 @@ class HybridRetriever(Retriever):
         drop_non_positive: bool = True,
     ) -> None:
         """Initialize a hybrid retriever.
-
         Args:
             lexical: the lexical component. Defaults to a fresh
                 ``BM25Retriever``.
