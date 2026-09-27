@@ -54,6 +54,36 @@ class ChunkStore:
             c for c in self._chunks.values() if c.file_path == file_path
         ]
 
+    def remove_chunk(self, chunk_id: str) -> None:
+        """Remove a single chunk by its ID (no-op if absent)."""
+        self._chunks.pop(chunk_id, None)
+
+    def remove_chunks_by_file(self, file_path: str) -> list[str]:
+        """Remove all chunks associated with a given file path.
+
+        Returns:
+            List of chunk_ids that were removed.
+        """
+        to_remove = [
+            cid for cid, c in self._chunks.items()
+            if c.file_path == file_path
+        ]
+        for cid in to_remove:
+            del self._chunks[cid]
+        return to_remove
+
+    def file_hashes(self) -> dict[str, str]:
+        """Return a mapping of file_path → file_hash for all stored chunks.
+
+        When a file has multiple chunks the hash is taken from the first
+        chunk encountered (they are all identical for a given file).
+        """
+        hashes: dict[str, str] = {}
+        for chunk in self._chunks.values():
+            if chunk.file_path not in hashes:
+                hashes[chunk.file_path] = chunk.file_hash
+        return hashes
+
     def clear(self) -> None:
         """Clear all stored chunks."""
         self._chunks.clear()

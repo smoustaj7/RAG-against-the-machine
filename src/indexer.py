@@ -5,7 +5,7 @@ from typing import Optional, Union
 from tqdm import tqdm
 
 from src.chunk_store import ChunkStore
-from src.chunking import chunk_file, should_index_file
+from src.chunking import chunk_file, compute_file_hash, should_index_file
 from src.retrieval.base import Retriever
 from src.retrieval.embedding import (
     DEFAULT_EMBEDDING_MODEL,
@@ -183,6 +183,19 @@ def resolve_index_path(
     return Path(default_index_path(name))
 
 
+def _compute_current_hash(path: Path) -> Optional[str]:
+    """Read a file and return its content hash, or None on error.
+
+    Returns:
+        The SHA-256 hex digest of the file content, or ``None``
+        if the file could not be read.
+    """
+    content = _read_file_safe(path)
+    if content is None:
+        return None
+    return compute_file_hash(content)
+
+
 def build_index(
     corpus_dir: Union[str, Path],
     max_chunk_size: int = 2000,
@@ -192,10 +205,19 @@ def build_index(
     index_path: Optional[Union[str, Path]] = None,
     embedding_model: str = DEFAULT_EMBEDDING_MODEL,
 ) -> None:
-    """Run the full pipeline: walk -> chunk -> fit -> persist.
+    """Run the full pipeline: walk → chunk → fit → persist.
 
-    The chunk registry is written once and shared by every
-    retriever, so switching retrievers never re-chunks the corpus.
+    Supports **incremental indexing**: if an existing chunk registry is
+    found at ``chunks_path``, each file's current SHA-256 hash is
+    compared against the ``file_hash`` stored in the registry.
+
+    * **Unchanged files** – their existing chunks are kept as-is.
+    * **Changed files** – stale chunks are dropped and the file is
+      re-chunked.
+    * **Removed files** – stale chunks are dropped.
+    * **New files** – chunked and added.
+
+    The retriever is only re-fitted when the chunk set has changed.
 
     Args:
         corpus_dir: path to the root directory of the corpus.
@@ -237,13 +259,73 @@ def build_index(
         print("No files to index. Aborting. 🦀 🚨", file=sys.stderr)
         return
 
-    store = ChunkStore()
+    # ------------------------------------------------------------------
+    # Load existing chunk registry (if any) for incremental diffing
+    # ------------------------------------------------------------------
+    chunks_out = Path(chunks_path)
+    store = ChunkStore.load_jsonl(chunks_out)
+    old_hashes = store.file_hashes()  # file_path → file_hash
+
+    # ------------------------------------------------------------------
+    # Compute the current on-disk hash for every indexable file
+    # ------------------------------------------------------------------
+    current_files: dict[str, tuple[Path, str]] = {}  # path_str → (Path, hash)
     skipped = 0
 
-    for file_path in tqdm(files, desc="Chunking files", unit="file"):
+    for file_path in files:
+        h = _compute_current_hash(file_path)
+        if h is None:
+            skipped += 1
+            continue
+        current_files[str(file_path)] = (file_path, h)
+
+    # ------------------------------------------------------------------
+    # Diff: determine which files are new/changed/removed/unchanged
+    # ------------------------------------------------------------------
+    current_paths = set(current_files.keys())
+    old_paths = set(old_hashes.keys())
+
+    removed_paths = old_paths - current_paths
+    new_paths = current_paths - old_paths
+    potentially_changed = current_paths & old_paths
+
+    changed_paths: set[str] = set()
+    for fp in potentially_changed:
+        _, new_hash = current_files[fp]
+        if new_hash != old_hashes[fp]:
+            changed_paths.add(fp)
+
+    unchanged_count = len(potentially_changed) - len(changed_paths)
+    dirty_paths = new_paths | changed_paths  # files that need (re-)chunking
+
+    print(
+        f"Incremental diff: {len(new_paths)} new, "
+        f"{len(changed_paths)} changed, "
+        f"{len(removed_paths)} removed, "
+        f"{unchanged_count} unchanged."
+    )
+
+    # ------------------------------------------------------------------
+    # Drop stale chunks for removed and changed files
+    # ------------------------------------------------------------------
+    stale_drop_count = 0
+    for fp in removed_paths | changed_paths:
+        dropped = store.remove_chunks_by_file(fp)
+        stale_drop_count += len(dropped)
+
+    if stale_drop_count:
+        print(f"Dropped {stale_drop_count} stale chunks.")
+
+    # ------------------------------------------------------------------
+    # Re-chunk only new and changed files
+    # ------------------------------------------------------------------
+    rechunked = 0
+    for fp in tqdm(sorted(dirty_paths), desc="Chunking files", unit="file"):
+        file_path, _ = current_files[fp]
         content = _read_file_safe(file_path)
         if content is None:
-            skipped += 1
+            # Shouldn't happen — we already read it for hashing — but
+            # handle gracefully anyway.
             continue
 
         chunks = chunk_file(
@@ -252,21 +334,35 @@ def build_index(
             max_chunk_size=max_chunk_size,
         )
         store.add_chunks(chunks)
+        rechunked += 1
 
     total_chunks = len(store)
     print(
         f"Chunking complete: {total_chunks} chunks "
-        f"from {len(files) - skipped} files "
-        f"({skipped} skipped)."
+        f"from {len(current_files)} files "
+        f"({rechunked} re-chunked, {skipped} skipped)."
     )
 
     if total_chunks == 0:
         print("No chunks produced. Aborting. 🦀 🚨", file=sys.stderr)
         return
 
-    chunks_out = Path(chunks_path)
+    # ------------------------------------------------------------------
+    # Persist the updated chunk registry
+    # ------------------------------------------------------------------
     store.save_jsonl(chunks_out)
     print(f"Chunk registry saved to: {chunks_out}")
+
+    # ------------------------------------------------------------------
+    # Re-fit and save the retriever (only when chunks changed)
+    # ------------------------------------------------------------------
+    anything_changed = bool(dirty_paths or removed_paths)
+    if not anything_changed:
+        print(
+            f"No changes detected — '{retriever_name}' index "
+            f"at {index_out} is up to date. ✅"
+        )
+        return
 
     print(f"Fitting '{retriever_name}' index...")
     retriever_impl = make_retriever(
