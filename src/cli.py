@@ -5,6 +5,13 @@ import sys
 import fire
 from tqdm import tqdm
 
+from src.cache import (
+    cached_load_chunk_store,
+    cached_load_retriever,
+    cached_search,
+    cache_stats as _cache_stats,
+    clear_cache as _clear_cache,
+)
 from src.chunk_store import ChunkStore
 from src.evaluator import evaluate_search_results
 from src.generation import AnswerGenerator
@@ -32,13 +39,19 @@ def _load_retriever_and_store(
     chunks_path: str,
     index_path: str,
     retriever: str = "bm25",
+    use_cache: bool = True,
 ) -> tuple[Retriever, ChunkStore]:
     """Load the persisted retriever and chunk store.
+
+    When ``use_cache`` is True the retriever and chunk store are
+    loaded through the ``diskcache`` caching layer (Bonus 4) so
+    that repeated invocations avoid expensive deserialization.
 
     Args:
         chunks_path: path to the chunk registry JSONL.
         index_path: path to the fitted retriever artifact.
         retriever: one of ``bm25``, ``embedding``, ``hybrid``.
+        use_cache: whether to use the disk cache.
 
     Raises:
         ValueError: if ``retriever`` is not a known retriever.
@@ -57,8 +70,12 @@ def _load_retriever_and_store(
             f"Run 'index --retriever {name}' first to build it."
         )
 
-    store = ChunkStore.load_jsonl(chunks_path)
-    retriever_impl = load_retriever(name, index_path)
+    if use_cache:
+        store = cached_load_chunk_store(chunks_path)
+        retriever_impl = cached_load_retriever(name, index_path)
+    else:
+        store = ChunkStore.load_jsonl(chunks_path)
+        retriever_impl = load_retriever(name, index_path)
     return retriever_impl, store
 
 
@@ -67,14 +84,27 @@ def _search_single(
     k: int,
     retriever: Retriever,
     store: ChunkStore,
+    retriever_name: str = "",
+    index_path: str = "",
+    use_cache: bool = True,
 ) -> list[MinimalSource]:
-    """Run a single search and return MinimalSource results."""
+    """Run a single search and return MinimalSource results.
+
+    When ``use_cache`` is True, search results are cached via
+    ``diskcache`` so that identical (query, k) pairs against
+    the same index artifact return instantly.
+    """
     if k <= 0:
         return []
     if not query or not query.strip():
         return []
 
-    results = retriever.search(query, k)
+    if use_cache and retriever_name and index_path:
+        results = cached_search(
+            retriever, retriever_name, index_path, query, k,
+        )
+    else:
+        results = retriever.search(query, k)
     sources: list[MinimalSource] = []
     for chunk_id, _score in results:
         chunk = store.get_chunk(chunk_id)
@@ -202,6 +232,7 @@ class CLI:
         bm25_index_path: str = DEFAULT_BM25_INDEX_PATH,
         retriever: str = "bm25",
         index_path: str = "",
+        cache: bool = True,
     ) -> None:
         """Search the index for a single query.
 
@@ -213,6 +244,8 @@ class CLI:
             retriever: one of ``bm25``, ``embedding``, ``hybrid``.
             index_path: path to the fitted retriever artifact,
                 overriding the per-retriever default.
+            cache: enable diskcache for index loading and
+                search results (default True).
         """
         try:
             query = str(query)
@@ -240,10 +273,17 @@ class CLI:
                     retriever, index_path, bm25_index_path
                 )
             )
+            ret_name = normalize_retriever_name(retriever)
             retriever_impl, store = _load_retriever_and_store(
-                chunks_path, resolved_index_path, retriever
+                chunks_path, resolved_index_path, retriever,
+                use_cache=cache,
             )
-            sources = _search_single(query, k, retriever_impl, store)
+            sources = _search_single(
+                query, k, retriever_impl, store,
+                retriever_name=ret_name,
+                index_path=resolved_index_path,
+                use_cache=cache,
+            )
 
             result = MinimalSearchResults(
                 question=query,
@@ -269,6 +309,7 @@ class CLI:
         bm25_index_path: str = DEFAULT_BM25_INDEX_PATH,
         retriever: str = "bm25",
         index_path: str = "",
+        cache: bool = True,
     ) -> None:
         """Batch-search over a dataset of questions.
         Loads an UnansweredQuestions dataset, retrieves sources for
@@ -283,6 +324,8 @@ class CLI:
             retriever: one of ``bm25``, ``embedding``, ``hybrid``.
             index_path: path to the fitted retriever artifact,
                 overriding the per-retriever default.
+            cache: enable diskcache for index loading and
+                search results (default True).
         """
         try:
             dataset_path = str(dataset_path)
@@ -314,8 +357,10 @@ class CLI:
                     retriever, index_path, bm25_index_path
                 )
             )
+            ret_name = normalize_retriever_name(retriever)
             retriever_impl, store = _load_retriever_and_store(
-                chunks_path, resolved_index_path, retriever
+                chunks_path, resolved_index_path, retriever,
+                use_cache=cache,
             )
 
             search_results: list[MinimalSearchResults] = []
@@ -326,7 +371,10 @@ class CLI:
                 unit="question",
             ):
                 sources = _search_single(
-                    q.question, k, retriever_impl, store
+                    q.question, k, retriever_impl, store,
+                    retriever_name=ret_name,
+                    index_path=resolved_index_path,
+                    use_cache=cache,
                 )
                 search_results.append(
                     MinimalSearchResults(
@@ -355,7 +403,7 @@ class CLI:
                 f"Search results saved to: {output_path}\n"
                 f"  Questions: {len(search_results)}\n"
                 f"  k: {k}\n"
-                f"  Retriever: {normalize_retriever_name(retriever)}"
+                f"  Retriever: {ret_name}"
             )
 
         except (FileNotFoundError, ValueError, OSError) as exc:
@@ -444,6 +492,7 @@ class CLI:
         bm25_index_path: str = DEFAULT_BM25_INDEX_PATH,
         retriever: str = "bm25",
         index_path: str = "",
+        cache: bool = True,
     ) -> None:
         """Search then generate an answer for a single query.
 
@@ -455,6 +504,8 @@ class CLI:
             retriever: one of ``bm25``, ``embedding``, ``hybrid``.
             index_path: path to the fitted retriever artifact,
                 overriding the per-retriever default.
+            cache: enable diskcache for index loading and
+                search results (default True).
         """
         try:
             query = str(query)
@@ -482,10 +533,17 @@ class CLI:
                     retriever, index_path, bm25_index_path
                 )
             )
+            ret_name = normalize_retriever_name(retriever)
             retriever_impl, store = _load_retriever_and_store(
-                chunks_path, resolved_index_path, retriever
+                chunks_path, resolved_index_path, retriever,
+                use_cache=cache,
             )
-            sources = _search_single(query, k, retriever_impl, store)
+            sources = _search_single(
+                query, k, retriever_impl, store,
+                retriever_name=ret_name,
+                index_path=resolved_index_path,
+                use_cache=cache,
+            )
 
             # Collect the actual chunk texts for the generator
             source_texts = _collect_source_texts(sources, store)
@@ -517,6 +575,7 @@ class CLI:
             str = "data/output/search_results/dataset_code_public.json",
         save_directory: str = "data/output/search_results_and_answer",
         chunks_path: str = DEFAULT_CHUNKS_PATH,
+        cache: bool = True,
     ) -> None:
         """Generate answers for every question in a search-results file.
 
@@ -530,6 +589,8 @@ class CLI:
                 StudentSearchResults JSON.
             save_directory: directory to write the output file.
             chunks_path: path to the chunk registry JSONL.
+            cache: enable diskcache for chunk store loading
+                (default True).
         """
         try:
             student_search_results_path = str(
@@ -549,7 +610,10 @@ class CLI:
             student_results = _load_student_results(
                 student_search_results_path
             )
-            store = ChunkStore.load_jsonl(chunks_path)
+            if cache:
+                store = cached_load_chunk_store(chunks_path)
+            else:
+                store = ChunkStore.load_jsonl(chunks_path)
 
             generator = AnswerGenerator()
 
@@ -602,6 +666,42 @@ class CLI:
         except Exception as exc:
             print(
                 f"Unexpected error during answer_dataset: {exc}",
+                file=sys.stderr,
+            )
+
+    def cache_clear(self) -> None:
+        """Clear the retrieval disk cache.
+
+        Removes all cached retrievers, chunk stores, and search
+        results from the ``diskcache`` directory.
+        """
+        try:
+            count = _clear_cache()
+            print(f"Cache cleared: {count} entries evicted.")
+        except Exception as exc:
+            print(
+                f"Error clearing cache: {exc}",
+                file=sys.stderr,
+            )
+
+    def cache_stats(self) -> None:
+        """Print cache statistics.
+
+        Shows the number of cached entries, total size on disk,
+        and the cache directory path.
+        """
+        try:
+            stats = _cache_stats()
+            size_mb = stats["size_bytes"] / (1024 * 1024)
+            print(
+                f"Cache statistics:\n"
+                f"  Entries:   {stats['entries']}\n"
+                f"  Size:      {size_mb:.2f} MiB\n"
+                f"  Directory: {stats['directory']}"
+            )
+        except Exception as exc:
+            print(
+                f"Error reading cache stats: {exc}",
                 file=sys.stderr,
             )
 

@@ -154,7 +154,7 @@ Because of the Phase 2–3 design choices, each bonus is additive:
    - RRF (`rrf_k=60`) over a 50-candidate pool per component; component results scoring <= 0 are dropped before fusion. Tuning persisted in `hybrid_meta.json`.
    - Reachable as `--retriever hybrid`. Saves to a *directory* holding both component artifacts.
 3. [x] **Incremental indexing** — in `indexer.py`, compare each file's current hash to the stored `file_hash` in the chunk registry; only re-chunk + re-index changed files; drop stale chunk_ids for removed/changed files.
-4. **Caching** — wrap `load_index()` / `run_search()` with `diskcache` or `joblib.Memory`; no logic changes needed if Phase 3–4 kept those as clean single-entry-point functions.
+4. [x] **Caching** — `src/cache.py` wraps retriever loading, chunk store loading, and search execution with `diskcache`. Cache invalidation is automatic via file mtime+size keying. CLI commands gain a `--cache/--no-cache` flag (default: on). Management via `cache_clear` and `cache_stats` commands.
 5. **Local HTTP API** — `src/api.py`, thin FastAPI app that imports and calls the exact same functions `cli.py` calls (search, answer). No duplicated logic.
 
 **Definition of done per bonus:** implemented, actually runs, demonstrable live — not just mentioned in the README.
