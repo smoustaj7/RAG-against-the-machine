@@ -23,19 +23,11 @@ FloatArray = npt.NDArray[np.float32]
 
 class EmbeddingRetriever(Retriever):
     """Dense retriever over sentence-transformer embeddings.
-
     Encodes every chunk once at index time with a transformer
     encoder (mean pooling over the last hidden state, followed by
     L2 normalisation -- the same recipe ``sentence-transformers``
     applies to ``all-MiniLM-L6-v2``), then ranks chunks at query
     time by cosine similarity.
-
-    Because every vector is L2-normalised, cosine similarity is a
-    plain dot product, so search is a single matrix-vector
-    multiplication over the whole corpus.
-
-    The model is loaded lazily: constructing or ``load()``-ing a
-    retriever costs nothing until the first encode.
     """
 
     def __init__(
@@ -46,7 +38,6 @@ class EmbeddingRetriever(Retriever):
         device: Optional[str] = None,
     ) -> None:
         """Initialize an unfitted EmbeddingRetriever.
-
         Args:
             model_name: HuggingFace encoder identifier or local path.
             max_seq_length: token cap per chunk when encoding.
@@ -57,7 +48,6 @@ class EmbeddingRetriever(Retriever):
         self.model_name = model_name
         self.max_seq_length = max_seq_length
         self.batch_size = max(1, batch_size)
-
         self._device: Optional[str] = device
         self._tokenizer: Any = None
         self._model: Any = None
@@ -83,7 +73,6 @@ class EmbeddingRetriever(Retriever):
 
     def _ensure_model(self) -> None:
         """Load the tokenizer and encoder on first use.
-
         Imports of torch/transformers are deliberately deferred to
         this method so that the lexical-only code path never pays
         for them.
@@ -158,11 +147,6 @@ class EmbeddingRetriever(Retriever):
                 summed = (hidden * mask).sum(dim=1)
                 counts = mask.sum(dim=1).clamp(min=1e-9)
                 pooled = summed / counts
-
-                # L2-normalise so cosine similarity is a dot
-                # product. Done with tensor methods rather than
-                # torch.nn.functional.normalize to keep this
-                # module's torch surface as small as possible.
                 norms = (
                     pooled.pow(2).sum(dim=1, keepdim=True).sqrt()
                 )
@@ -191,7 +175,6 @@ class EmbeddingRetriever(Retriever):
         self, query: str, k: int
     ) -> List[Tuple[str, float]]:
         """Return the top-k chunks by cosine similarity.
-
         Args:
             query: the search query string.
             k: number of results to return.
@@ -223,7 +206,6 @@ class EmbeddingRetriever(Retriever):
                 f"indexed dimension ({self._embeddings.shape[1]}). "
                 "Re-run 'index' with the same embedding model."
             )
-
         scores = self._embeddings @ query_vector[0]
 
         top_k = min(
@@ -242,10 +224,6 @@ class EmbeddingRetriever(Retriever):
 
     def save(self, path: Union[str, Path]) -> None:
         """Persist the embedding matrix and chunk IDs to an .npz.
-
-        The archive is written without pickling, so it can be loaded
-        back with ``allow_pickle=False``.
-
         Args:
             path: file path to save to.
         """

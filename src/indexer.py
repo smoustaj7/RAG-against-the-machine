@@ -259,17 +259,11 @@ def build_index(
         print("No files to index. Aborting. 🦀 🚨", file=sys.stderr)
         return
 
-    # ------------------------------------------------------------------
-    # Load existing chunk registry (if any) for incremental diffing
-    # ------------------------------------------------------------------
     chunks_out = Path(chunks_path)
     store = ChunkStore.load_jsonl(chunks_out)
-    old_hashes = store.file_hashes()  # file_path → file_hash
+    old_hashes = store.file_hashes()
 
-    # ------------------------------------------------------------------
-    # Compute the current on-disk hash for every indexable file
-    # ------------------------------------------------------------------
-    current_files: dict[str, tuple[Path, str]] = {}  # path_str → (Path, hash)
+    current_files: dict[str, tuple[Path, str]] = {}
     skipped = 0
 
     for file_path in files:
@@ -279,9 +273,6 @@ def build_index(
             continue
         current_files[str(file_path)] = (file_path, h)
 
-    # ------------------------------------------------------------------
-    # Diff: determine which files are new/changed/removed/unchanged
-    # ------------------------------------------------------------------
     current_paths = set(current_files.keys())
     old_paths = set(old_hashes.keys())
 
@@ -305,9 +296,6 @@ def build_index(
         f"{unchanged_count} unchanged."
     )
 
-    # ------------------------------------------------------------------
-    # Drop stale chunks for removed and changed files
-    # ------------------------------------------------------------------
     stale_drop_count = 0
     for fp in removed_paths | changed_paths:
         dropped = store.remove_chunks_by_file(fp)
@@ -316,16 +304,11 @@ def build_index(
     if stale_drop_count:
         print(f"Dropped {stale_drop_count} stale chunks.")
 
-    # ------------------------------------------------------------------
-    # Re-chunk only new and changed files
-    # ------------------------------------------------------------------
     rechunked = 0
     for fp in tqdm(sorted(dirty_paths), desc="Chunking files", unit="file"):
         file_path, _ = current_files[fp]
         content = _read_file_safe(file_path)
         if content is None:
-            # Shouldn't happen — we already read it for hashing — but
-            # handle gracefully anyway.
             continue
 
         chunks = chunk_file(
@@ -347,15 +330,8 @@ def build_index(
         print("No chunks produced. Aborting. 🦀 🚨", file=sys.stderr)
         return
 
-    # ------------------------------------------------------------------
-    # Persist the updated chunk registry
-    # ------------------------------------------------------------------
     store.save_jsonl(chunks_out)
     print(f"Chunk registry saved to: {chunks_out}")
-
-    # ------------------------------------------------------------------
-    # Re-fit and save the retriever (only when chunks changed)
-    # ------------------------------------------------------------------
     anything_changed = bool(dirty_paths or removed_paths)
     if not anything_changed:
         print(

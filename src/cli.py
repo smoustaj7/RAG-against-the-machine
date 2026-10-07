@@ -545,7 +545,6 @@ class CLI:
                 use_cache=cache,
             )
 
-            # Collect the actual chunk texts for the generator
             source_texts = _collect_source_texts(sources, store)
 
             generator = AnswerGenerator()
@@ -769,9 +768,6 @@ def _collect_source_texts(
                 matched = True
                 break
         if not matched:
-            # Source was in the results but not in the chunk store —
-            # could happen if the index was rebuilt with different
-            # settings.  We skip silently.
             pass
     return texts
 
