@@ -2,9 +2,9 @@
 import hashlib
 import sys
 from pathlib import Path
-from typing import List, Tuple
+from typing import Any, List, Tuple, cast
 
-import diskcache
+import diskcache  # type: ignore[import-untyped]
 
 from src.chunk_store import ChunkStore
 from src.retrieval.base import Retriever
@@ -92,7 +92,7 @@ def cached_load_retriever(
             f"  [cache] '{retriever_name}' retriever loaded from cache.",
             file=sys.stderr,
         )
-        return result
+        return cast(Retriever, result)
 
     from src.indexer import load_retriever as _load
     retriever = _load(retriever_name, index_path)
@@ -130,7 +130,7 @@ def cached_load_chunk_store(
             "  [cache] Chunk store loaded from cache.",
             file=sys.stderr,
         )
-        return result
+        return cast(ChunkStore, result)
 
     store = ChunkStore.load_jsonl(chunks_path)
     try:
@@ -194,7 +194,7 @@ def cached_search(
 
     result = cache.get(cache_key)
     if result is not None:
-        return result
+        return cast(List[Tuple[str, float]], result)
 
     results = retriever.search(query, k)
     try:
@@ -219,7 +219,7 @@ def clear_cache(cache_dir: str = DEFAULT_CACHE_DIR) -> int:
     return count
 
 
-def cache_stats(cache_dir: str = DEFAULT_CACHE_DIR) -> dict:
+def cache_stats(cache_dir: str = DEFAULT_CACHE_DIR) -> dict[str, Any]:
     """Return basic cache statistics.
 
     Args:
