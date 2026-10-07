@@ -705,6 +705,37 @@ class CLI:
                 file=sys.stderr,
             )
 
+    def api(
+        self,
+        host: str = "127.0.0.1",
+        port: int = 8000,
+    ) -> None:
+        """Start the local HTTP API server (Bonus 5).
+
+        Launches the FastAPI app defined in ``src.api`` using
+        uvicorn.  Endpoints: ``GET /health``, ``POST /search``,
+        ``POST /answer``.
+
+        Args:
+            host: bind address (default ``127.0.0.1``).
+            port: listen port (default ``8000``).
+        """
+        try:
+            import uvicorn
+        except ImportError:
+            print(
+                "Error: uvicorn is required for the API server.\n"
+                "Install it with: uv add uvicorn",
+                file=sys.stderr,
+            )
+            return
+        print(
+            f"Starting RAG API server on http://{host}:{port}\n"
+            f"  Docs:   http://{host}:{port}/docs\n"
+            f"  Health: http://{host}:{port}/health"
+        )
+        uvicorn.run("src.api:app", host=host, port=port)
+
 
 def _collect_source_texts(
     sources: list[MinimalSource],
