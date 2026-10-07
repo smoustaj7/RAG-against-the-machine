@@ -73,3 +73,5 @@ data/processed/*
 !data/processed/.gitkeep
 data/output/*
 !data/output/.gitkeep
+datasets_public/*
+moulinette/*
