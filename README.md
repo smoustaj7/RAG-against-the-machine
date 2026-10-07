@@ -360,22 +360,45 @@ uv run python -m src search --query "How does PagedAttention manage KV cache blo
 ### Batch search a dataset
 
 ```bash
+# Code dataset
 uv run python -m src search_dataset \
   --dataset_path data/datasets/UnansweredQuestions/dataset_code_public.json \
   --k 10 \
   --save_directory data/output/search_results/UnansweredQuestions
-# Searching: 100%|████████████████████| 99/99 [00:01<00:00, 52.92question/s]
-# Search results saved to: data/output/search_results/UnansweredQuestions/dataset_code_public.json
+
+# Docs dataset
+uv run python -m src search_dataset \
+  --dataset_path data/datasets/UnansweredQuestions/dataset_docs_public.json \
+  --k 10 \
+  --save_directory data/output/search_results/UnansweredQuestions
 ```
 
 ### Evaluate with the moulinette
+
+**Code dataset:**
 
 ```bash
 ./moulinette/moulinette-ubuntu evaluate_student_search_results \
   data/output/search_results/UnansweredQuestions/dataset_code_public.json \
   data/datasets/AnsweredQuestions/dataset_code_public.json \
   --k 10 --max_context_length 2000
-# 📈 Recall@5: 0.667 (66.7%)  ✅
+# 📈 Recall@1: 0.333 (33.3%)
+# 📈 Recall@3: 0.586 (58.6%)
+# 📈 Recall@5: 0.667 (66.7%)  ✅ ≥ 50%
+# 📈 Recall@10: 0.727 (72.7%)
+```
+
+**Docs dataset:**
+
+```bash
+./moulinette/moulinette-ubuntu evaluate_student_search_results \
+  data/output/search_results/UnansweredQuestions/dataset_docs_public.json \
+  data/datasets/AnsweredQuestions/dataset_docs_public.json \
+  --k 10 --max_context_length 2000
+# 📈 Recall@1: 0.650 (65.0%)
+# 📈 Recall@3: 0.770 (77.0%)
+# 📈 Recall@5: 0.820 (82.0%)  ✅ ≥ 80%
+# 📈 Recall@10: 0.910 (91.0%)
 ```
 
 ### Generate answers
