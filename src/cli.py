@@ -304,7 +304,7 @@ class CLI:
         dataset_path: str =
         "data/datasets/UnansweredQuestions/dataset_code_public.json",
         k: int = 5,
-        save_directory: str = "data/output/search_results",
+        save_directory: str = "data/output/search_results/UnansweredQuestions",
         chunks_path: str = DEFAULT_CHUNKS_PATH,
         bm25_index_path: str = DEFAULT_BM25_INDEX_PATH,
         retriever: str = "bm25",
@@ -419,7 +419,7 @@ class CLI:
         student_search_results_path: str =
         "data/output/search_results/dataset_code_public.json",
         dataset_path: str =
-        "data/datasets/UnansweredQuestions/dataset_code_public.json",
+        "data/datasets/AnsweredQuestions/dataset_code_public.json",
     ) -> None:
         """Evaluate retrieval quality against ground truth.
         Computes recall@1, recall@3, recall@5, recall@10 using
