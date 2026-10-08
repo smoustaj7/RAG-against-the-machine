@@ -211,11 +211,11 @@ def build_index(
     found at ``chunks_path``, each file's current SHA-256 hash is
     compared against the ``file_hash`` stored in the registry.
 
-    * **Unchanged files** – their existing chunks are kept as-is.
-    * **Changed files** – stale chunks are dropped and the file is
+    * **Unchanged files** - their existing chunks are kept as-is.
+    * **Changed files** - stale chunks are dropped and the file is
       re-chunked.
-    * **Removed files** – stale chunks are dropped.
-    * **New files** – chunked and added.
+    * **Removed files** - stale chunks are dropped.
+    * **New files** - chunked and added.
 
     The retriever is only re-fitted when the chunk set has changed.
 
@@ -256,7 +256,7 @@ def build_index(
     print(f"Found {len(files)} indexable files.")
 
     if not files:
-        print("No files to index. Aborting. 🦀 🚨", file=sys.stderr)
+        print("No files to index. Aborting Mission. 🦀 🚨", file=sys.stderr)
         return
 
     chunks_out = Path(chunks_path)
@@ -287,7 +287,7 @@ def build_index(
             changed_paths.add(fp)
 
     unchanged_count = len(potentially_changed) - len(changed_paths)
-    dirty_paths = new_paths | changed_paths  # files that need (re-)chunking
+    dirty_paths = new_paths | changed_paths
 
     print(
         f"Incremental diff: {len(new_paths)} new, "
@@ -327,7 +327,7 @@ def build_index(
     )
 
     if total_chunks == 0:
-        print("No chunks produced. Aborting. 🦀 🚨", file=sys.stderr)
+        print("No chunks produced. Aborting Mission. 🦀 🚨", file=sys.stderr)
         return
 
     store.save_jsonl(chunks_out)

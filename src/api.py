@@ -31,10 +31,6 @@ def _get_generator() -> AnswerGenerator:
     return _generator
 
 
-# ------------------------------------------------------------------
-# Request / Response schemas
-# ------------------------------------------------------------------
-
 class SearchRequest(BaseModel):
     """POST body for /search."""
 
